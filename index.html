@@ -3,15 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TriviaTime</title>
+  <title>TriviaTime - Python Quiz</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Welcome to TriviaTime</h1>
+    <h1>TriviaTime: Python Quiz</h1>
   </header>
   <main>
-    <button id="start-quiz">Start Quiz</button>
+    <div id="progress-bar-container">
+      <div id="progress-bar"></div>
+    </div>
+    <div id="timer">Time Left: <span id="time-left">15</span> seconds</div>
+    <section id="quiz-container">
+      <div id="question-container">
+        <h2 id="question">Question will appear here</h2>
+      </div>
+      <div id="options-container">
+        <button class="option">Option 1</button>
+        <button class="option">Option 2</button>
+        <button class="option">Option 3</button>
+        <button class="option">Option 4</button>
+      </div>
+      <div id="navigation">
+        <button id="prev-btn" style="display: none;">Previous</button>
+        <button id="next-btn">Next</button>
+      </div>
+    </section>
   </main>
   <script src="script.js"></script>
 </body>
