@@ -1,114 +1,149 @@
 const questions = [
-    {
-      question: "Which of the following is NOT a valid Python data type?",
-      options: ["List", "Tuple", "Dictionary", "Array"],
-      answer: 3,
-    },
-    {
-      question: "What is the output of: print(type(lambda x: x))?",
-      options: ["<class 'function'>", "<class 'lambda'>", "<class 'method'>", "Error"],
-      answer: 0,
-    },
-    {
-      question: "What is the purpose of the `__init__` method in Python?",
-      options: [
-        "To initialize a class instance",
-        "To define a private variable",
-        "To execute code at runtime",
-        "To declare static methods",
-      ],
-      answer: 0,
-    },
-    {
-      question: "Which of these statements about Python inheritance is true?",
-      options: [
-        "A class can only inherit from one parent class",
-        "Child classes override all methods of the parent class",
-        "Python supports multiple inheritance",
-        "Parent classes must implement all methods of child classes",
-      ],
-      answer: 2,
-    },
-    {
-      question: "What is the output of: print(2 ** 3 ** 2)?",
-      options: ["512", "64", "16", "Error"],
-      answer: 0,
-    },
-  ];
-  
-  let currentQuestionIndex = 0;
-  let score = 0;
-  let timeLeft = 15;
-  let timerInterval;
-  
-  const questionElement = document.getElementById("question");
-  const optionButtons = document.querySelectorAll(".option");
-  const nextButton = document.getElementById("next-btn");
-  const progressBar = document.getElementById("progress-bar");
-  
-  function loadQuestion() {
+  { question: "What is Python?", options: ["A snake", "A programming language", "A car", "An operating system"], correct: 1 },
+  { question: "What is the output of: print(type(lambda x: x))?",options: ["<class 'function'>", "<class 'lambda'>", "<class 'method'>", "Error"], correct: 0 },
+  { question: "What does OOP stand for?", options: ["Object-Oriented Programming", "Operational Output Process", "Overlapping Object Procedures", "Organized Operations Program"], correct: 0 },
+  { question: "Which keyword is used to create a class in Python?", options: ["def", "class", "function", "module"], correct: 1 },
+  { question: "What is the correct file extension for Python files?", options: [".pyth", ".pt", ".py", ".python"], correct: 2 },
+  { question: "Which of the following is a mutable data type in Python?", options: ["String", "Tuple", "List", "Integer"], correct: 2 },
+  { question: "How do you define a function in Python?", options: ["function()", "def myFunction():", "create myFunction()", "func myFunction()"], correct: 1 },
+  { question: "Which operator is used for exponentiation in Python?", options: ["^", "**", "//", "%"], correct: 1 },
+  { question: "What is the output of `print(2 ** 3)` in Python?", options: ["6", "8", "9", "Error"], correct: 1 },
+  { question: "Which of these is NOT a Python keyword?", options: ["lambda", "yield", "var", "global"], correct: 2 },
+  { question: "Which Python library is used for data manipulation?", options: ["NumPy", "Matplotlib", "Pandas", "Flask"], correct: 2 },
+  { question: "What does the `self` keyword represent in a Python class?", options: ["The class itself", "A variable", "The instance of the class", "A function"], correct: 2 },
+  { question: "What is the purpose of the `__init__` method in Python?", options: ["Initialize a class", "Define a variable", "Create a function", "Initialize an object"], correct: 3 },
+  { question: "Which method is used to add an item to a list in Python?", options: ["insert()", "add()", "push()", "append()"], correct: 3 },
+  { question: "How do you comment a single line in Python?", options: ["//", "#", "/* */", "!!"], correct: 1 },
+  { question: "Which of the following is used to handle exceptions in Python?", options: ["try-catch", "try-except", "error handling", "catch block"], correct: 1 },
+  { question: "Which Python feature is used to iterate over items in a list?", options: ["while loop", "if-else", "for loop", "switch-case"], correct: 2 },
+  { question: "Which of these methods can be used to remove an element from a dictionary?", options: ["del", "remove", "discard", "pop"], correct: 0 },
+  { question: "What is the output of `type(3.14)`?", options: ["int", "float", "double", "decimal"], correct: 1 },
+  { question: "Which method is used to convert a string to lowercase in Python?", options: ["toLowerCase()", "lower()", "casefold()", "tolower()"], correct: 1 },
+  { question: "What does the `len()` function do?", options: ["Calculates the length of a string or collection", "Finds the size of a file", "Returns the maximum value in a list", "Counts the number of occurrences of an item"], correct: 0 },
+  { question: "Which Python module is used for regular expressions?", options: ["regex", "re", "match", "expr"], correct: 1 },
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 15;
+let timerInterval;
+
+// DOM Elements
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options-container");
+const prevButton = document.getElementById("prev-btn");
+const nextButton = document.getElementById("next-btn");
+const progressBar = document.getElementById("progress-bar");
+
+// Load Question
+function loadQuestion() {
+    clearInterval(timerInterval); // Clear any existing timers
+    timeLeft = 15; // Reset timer
+    updateTimerDisplay();
+
     const currentQuestion = questions[currentQuestionIndex];
+
+    // Reset UI
     questionElement.textContent = currentQuestion.question;
-    optionButtons.forEach((button, index) => {
-      button.textContent = currentQuestion.options[index];
-      button.disabled = false;
-      button.classList.remove("correct", "incorrect");
+    optionsContainer.innerHTML = "";
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.classList.add("option");
+        button.onclick = () => handleAnswer(index);
+        optionsContainer.appendChild(button);
     });
+
+    prevButton.disabled = currentQuestionIndex === 0;
+    nextButton.disabled = true; // Disable Next until a question is answered
+
     updateProgressBar();
     startTimer();
-  }
-  
-  function handleAnswer(selectedIndex) {
+}
+
+// Handle Answer Selection
+function handleAnswer(selectedIndex) {
     const currentQuestion = questions[currentQuestionIndex];
-    clearInterval(timerInterval);
-    if (selectedIndex === currentQuestion.answer) {
-      score++;
-      optionButtons[selectedIndex].classList.add("correct");
-    } else {
-      optionButtons[selectedIndex].classList.add("incorrect");
-      optionButtons[currentQuestion.answer].classList.add("correct");
+    clearInterval(timerInterval); // Stop the timer
+
+    optionsContainer.childNodes.forEach((button, index) => {
+        button.classList.add("disabled"); // Disable hover effect
+        if (index === currentQuestion.correct) {
+            button.classList.add("correct"); // Highlight the correct answer in green
+        }
+        if (index === selectedIndex && selectedIndex !== currentQuestion.correct) {
+            button.classList.add("incorrect"); // Highlight the selected incorrect answer in red
+        }
+        button.disabled = true;
+    });
+
+    nextButton.disabled = false; // Enable Next Button
+
+    if (selectedIndex === currentQuestion.correct) {
+        score++;
     }
-    optionButtons.forEach(button => (button.disabled = true));
-  }
-  
-  function startTimer() {
-    timeLeft = 15;
-    document.getElementById("time-left").textContent = timeLeft;
+}
+
+// Timer Logic
+function startTimer() {
+    clearInterval(timerInterval); // Ensure only one interval is running
     timerInterval = setInterval(() => {
-      timeLeft--;
-      document.getElementById("time-left").textContent = timeLeft;
-      if (timeLeft === 0) {
-        clearInterval(timerInterval);
-        handleAnswer(-1); // Timeout is treated as an incorrect answer
-      }
+        timeLeft--;
+        console.log("Time left:", timeLeft); // Debugging log
+        updateTimerDisplay();
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            handleTimeout();
+        }
     }, 1000);
-  }
-  
-  function updateProgressBar() {
-    const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
-    progressBar.style.width = `${progress}%`;
-  }
-  
-  function endQuiz() {
+}
+
+function updateTimerDisplay() {
+    const timerElement = document.getElementById("time-left");
+    timerElement.textContent = timeLeft;
+}
+
+// Handle Timeout
+function handleTimeout() {
+    const currentQuestion = questions[currentQuestionIndex];
+
+    optionsContainer.childNodes.forEach((button, index) => {
+        button.classList.add("disabled"); // Disable hover effect
+        if (index === currentQuestion.correct) {
+            button.classList.add("correct"); // Highlight the correct answer on timeout
+        }
+        button.disabled = true;
+    });
+
+    nextButton.disabled = false; // Enable Next Button
+}
+
+// End Quiz
+function endQuiz() {
     clearInterval(timerInterval);
     questionElement.textContent = `Quiz Over! Your score is ${score}/${questions.length}.`;
-    document.getElementById("options-container").style.display = "none";
+    optionsContainer.innerHTML = "";
+    prevButton.style.display = "none";
     nextButton.style.display = "none";
-  }
-  
-  optionButtons.forEach((button, index) => {
-    button.addEventListener("click", () => handleAnswer(index));
-  });
-  
-  nextButton.addEventListener("click", () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      currentQuestionIndex++;
-      loadQuestion();
-    } else {
-      endQuiz();
+}
+
+// Navigation Buttons
+prevButton.addEventListener("click", () => {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion();
     }
-  });
-  
-  // Initialize the quiz
-  loadQuestion();
-  
+});
+
+nextButton.addEventListener("click", () => {
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion();
+    } else {
+        endQuiz();
+    }
+});
+
+// Initialize Quiz
+loadQuestion();
