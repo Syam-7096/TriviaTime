@@ -32,8 +32,10 @@ let timerInterval;
 const questionElement = document.getElementById("question");
 const optionsContainer = document.getElementById("options-container");
 const prevButton = document.getElementById("prev-btn");
-const nextButton = document.getElementById("next-btn");
+const skipButton = document.getElementById("next-btn"); // Renamed "Next" button to "Skip"
 const progressBar = document.getElementById("progress-bar");
+const timerElement = document.getElementById("time-left");
+const restartButtonContainer = document.getElementById("restart-btn-container"); // New container for restart button
 
 // Load Question
 function loadQuestion() {
@@ -55,7 +57,7 @@ function loadQuestion() {
     });
 
     prevButton.disabled = currentQuestionIndex === 0;
-    nextButton.disabled = true; // Disable Next until a question is answered
+    skipButton.disabled = false; // Enable Skip Button
 
     updateProgressBar();
     startTimer();
@@ -77,11 +79,19 @@ function handleAnswer(selectedIndex) {
         button.disabled = true;
     });
 
-    nextButton.disabled = false; // Enable Next Button
-
     if (selectedIndex === currentQuestion.correct) {
         score++;
     }
+
+    // Auto move to next question after 1 second delay
+    setTimeout(() => {
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        } else {
+            endQuiz();
+        }
+    }, 1000); // 1 second delay before moving to the next question
 }
 
 // Timer Logic
@@ -89,7 +99,6 @@ function startTimer() {
     clearInterval(timerInterval); // Ensure only one interval is running
     timerInterval = setInterval(() => {
         timeLeft--;
-        console.log("Time left:", timeLeft); // Debugging log
         updateTimerDisplay();
 
         if (timeLeft <= 0) {
@@ -100,7 +109,6 @@ function startTimer() {
 }
 
 function updateTimerDisplay() {
-    const timerElement = document.getElementById("time-left");
     timerElement.textContent = timeLeft;
 }
 
@@ -116,7 +124,34 @@ function handleTimeout() {
         button.disabled = true;
     });
 
-    nextButton.disabled = false; // Enable Next Button
+    // Auto move to the next question after 1 second delay
+    setTimeout(() => {
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        } else {
+            endQuiz();
+        }
+    }, 1000); // 1 second delay before moving to the next question
+}
+
+// Skip to Next Question
+function skipQuestion() {
+    clearInterval(timerInterval); // Stop the timer immediately
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Disable all the options
+    optionsContainer.childNodes.forEach((button) => {
+        button.classList.add("disabled"); // Disable hover effect
+    });
+
+    // Move to the next question immediately
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion();
+    } else {
+        endQuiz();
+    }
 }
 
 // End Quiz
@@ -125,7 +160,36 @@ function endQuiz() {
     questionElement.textContent = `Quiz Over! Your score is ${score}/${questions.length}.`;
     optionsContainer.innerHTML = "";
     prevButton.style.display = "none";
-    nextButton.style.display = "none";
+    skipButton.style.display = "none"; // Hide the Skip button
+    restartButtonContainer.style.display = "block"; // Show the Restart button
+
+    // Create the Restart button dynamically (if not already present)
+    const restartButton = document.createElement("button");
+    restartButton.textContent = "Restart Quiz";
+    restartButton.onclick = restartQuiz;
+    restartButtonContainer.appendChild(restartButton);
+}
+
+// Restart Quiz
+function restartQuiz() {
+    // Reset quiz variables
+    currentQuestionIndex = 0;
+    score = 0;
+    timeLeft = 15;
+
+    // Hide Restart button and re-enable navigation
+    restartButtonContainer.style.display = "none"; // Hide the Restart button
+    prevButton.style.display = "inline-block"; // Show the previous button again
+    skipButton.style.display = "inline-block"; // Show the Skip button again
+
+    // Start the quiz again from the first question
+    loadQuestion();
+}
+
+// Update Progress Bar
+function updateProgressBar() {
+    const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+    progressBar.style.width = `${progressPercentage}%`;
 }
 
 // Navigation Buttons
@@ -136,14 +200,8 @@ prevButton.addEventListener("click", () => {
     }
 });
 
-nextButton.addEventListener("click", () => {
-    if (currentQuestionIndex < questions.length - 1) {
-        currentQuestionIndex++;
-        loadQuestion();
-    } else {
-        endQuiz();
-    }
-});
+// Skip Button
+skipButton.addEventListener("click", skipQuestion); // "Skip" button functionality
 
 // Initialize Quiz
 loadQuestion();
