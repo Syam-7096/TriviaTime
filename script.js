@@ -1,204 +1,227 @@
-let questions = [];
+let questions = {};
+let filteredQuestions = [];
 let currentQuestionIndex = 0;
-let score = 0;
-let timeLeft = 15;
+let correctAnswers = 0;
+let incorrectAnswers = 0;
 let timerInterval;
+let timeLeft = 15; // Set timer duration to 15 seconds
+const categoryCards = document.querySelectorAll('.category-card');
+const quizContainer = document.getElementById('quiz-container');
+const questionContainer = document.getElementById('question-container');
+const optionsContainer = document.getElementById('options-container');
+const prevButton = document.getElementById('prev-btn');
+const nextButton = document.getElementById('next-btn');
+const timerDisplay = document.getElementById('timer');
+const progressBar = document.getElementById('progress-bar');
+const restartButtonContainer = document.getElementById('restart-btn-container');
 
+// Fetching questions.json and ensuring data is loaded
 fetch('questions.json')
-  .then(response => response.json())
-  .then(data => {
-      questions = data.questions; 
-      loadQuestion(); // Load the first question
-  })
-  .catch(error => console.error('Error loading the questions:', error));
+    .then(response => response.json())
+    .then(data => {
+        questions = data; // Assuming the data structure contains categories
+        isDataLoaded = true;
+    })
+    .catch(error => console.error('Error loading the questions:', error));
 
-// DOM Elements
-const questionElement = document.getElementById("question");
-const optionsContainer = document.getElementById("options-container");
-const prevButton = document.getElementById("prev-btn");
-const skipButton = document.getElementById("next-btn"); // Renamed "Next" button to "Skip"
-const progressBar = document.getElementById("progress-bar");
-const timerElement = document.getElementById("time-left");
-const restartButtonContainer = document.getElementById("restart-btn-container"); // New container for restart button
+// Event listener for category selection
+categoryCards.forEach(card => {
+    card.addEventListener('click', () => {
+        const category = card.getAttribute('data-category');
+        filterQuestionsByCategory(category);
+        startQuiz();
+    });
+});
+
+// Function to filter questions by category
+function filterQuestionsByCategory(category) {
+    if (!questions[category]) {
+        filteredQuestions = [];
+    } else {
+        filteredQuestions = questions[category];
+    }
+}
+
+// Start Quiz
+function startQuiz() {
+    if (filteredQuestions.length === 0) {
+        alert("No questions available for this category.");
+        return;
+    }
+
+    currentQuestionIndex = 0;
+    correctAnswers = 0;
+    incorrectAnswers = 0;
+
+    // Hide category selection and show quiz container
+    document.getElementById("category-container").style.display = "none";
+    quizContainer.style.display = "block";
+
+    loadQuestion();
+}
 
 // Load Question
 function loadQuestion() {
     clearInterval(timerInterval); // Clear any existing timers
-    timeLeft = 15; // Reset timer
+    timeLeft = 15; // Reset timer to 15 seconds
     updateTimerDisplay();
-    const currentQuestion = questions[currentQuestionIndex];
-
-    const quizContainer = document.getElementById("quiz-container");
-    quizContainer.classList.remove("fade", "in"); // Remove previous fade classes
+    const currentQuestion = filteredQuestions[currentQuestionIndex];
 
     setTimeout(() => {
-        quizContainer.classList.add("fade", "in");
-
         // Reset UI with the current question
-        questionElement.textContent = currentQuestion.question;
+        questionContainer.textContent = currentQuestion.question;
         optionsContainer.innerHTML = ""; // Clear previous options
         currentQuestion.options.forEach((option, index) => {
-            const button = document.createElement("button");
-            button.textContent = option;
-            button.classList.add("option");
-            button.onclick = () => handleAnswer(index);
-            optionsContainer.appendChild(button);
+            const optionButton = document.createElement('button');
+            optionButton.textContent = option;
+            optionButton.classList.add('option');
+            optionButton.addEventListener('click', () => handleAnswer(index));
+            optionsContainer.appendChild(optionButton);
         });
 
         // Enable/Disable buttons based on question index
         prevButton.disabled = currentQuestionIndex === 0;
-        skipButton.disabled = false; // Enable Skip Button
-
-        updateProgressBar(); // Update progress bar
+        nextButton.disabled = false; // Enable the skip button
+        updateProgressBar();
         startTimer(); // Start the timer
-
     }, 100);
 }
 
 // Handle Answer Selection
 function handleAnswer(selectedIndex) {
-    const currentQuestion = questions[currentQuestionIndex];
-    clearInterval(timerInterval); // Stop the timer
+    const currentQuestion = filteredQuestions[currentQuestionIndex];
+    const optionButtons = optionsContainer.querySelectorAll('.option');
+    optionButtons.forEach((button, index) => {
+        button.disabled = true;  // Disable all options after selection
+        button.classList.add('disabled');  // Disable hover effect
 
-    optionsContainer.childNodes.forEach((button, index) => {
-        button.classList.add("disabled"); // Disable hover effect
+        // Highlight the correct answer in green
         if (index === currentQuestion.correct) {
-            button.classList.add("correct"); // Highlight the correct answer in green
+            button.classList.add('correct');
+        } 
+        // Highlight the selected answer in red if it's incorrect
+        else if (index === selectedIndex && selectedIndex !== currentQuestion.correct) {
+            button.classList.add('incorrect');
         }
-        if (index === selectedIndex && selectedIndex !== currentQuestion.correct) {
-            button.classList.add("incorrect"); // Highlight the selected incorrect answer in red
-        }
-        button.disabled = true;
     });
 
+    // Increment score if the selected answer is correct
     if (selectedIndex === currentQuestion.correct) {
-        score++;
+        correctAnswers++;  // Increase correct answers count
+    } else {
+        incorrectAnswers++;  // Increase incorrect answers count
     }
 
-    // Auto move to next question after 1 second delay
+    // Move to next question after a short delay
     setTimeout(() => {
-        if (currentQuestionIndex < questions.length - 1) {
-            currentQuestionIndex++;
-            loadQuestion();
+        if (currentQuestionIndex === filteredQuestions.length - 1) {
+            endQuiz();  // End quiz if it's the last question
         } else {
-            endQuiz();
+            currentQuestionIndex++;  // Move to the next question
+            loadQuestion();  // Load the next question
         }
-    }, 1000); // 1 second delay before moving to the next question
+    }, 1000);  // Delay before moving to next question or ending the quiz
 }
 
 // Timer Logic
 function startTimer() {
-    clearInterval(timerInterval); // Ensure only one interval is running
     timerInterval = setInterval(() => {
         timeLeft--;
         updateTimerDisplay();
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            handleTimeout();
+            handleTimeout(); // Timeout handler
         }
     }, 1000);
 }
 
+// Update Timer Display
 function updateTimerDisplay() {
-    timerElement.textContent = timeLeft;
+    timerDisplay.textContent = `Time Left: ${timeLeft}s`;
     if (timeLeft <= 5) {
-        timerElement.style.color = "red"; // Change color to red
+        timerDisplay.style.color = 'red'; // Change color to red
     } else {
-        timerElement.style.color = "black"; // Reset color
+        timerDisplay.style.color = 'black'; // Reset color
     }
 }
 
-// Handle Timeout
+// Handle Timeout (When timer reaches 0)
 function handleTimeout() {
-    const currentQuestion = questions[currentQuestionIndex];
+    const currentQuestion = filteredQuestions[currentQuestionIndex];
 
-    optionsContainer.childNodes.forEach((button, index) => {
-        button.classList.add("disabled"); // Disable hover effect
+    optionsContainer.querySelectorAll('.option').forEach((button, index) => {
+        button.classList.add('disabled');
         if (index === currentQuestion.correct) {
-            button.classList.add("correct"); // Highlight the correct answer on timeout
+            button.classList.add('correct');
         }
         button.disabled = true;
     });
 
-    // Auto move to the next question after 1 second delay
     setTimeout(() => {
-        if (currentQuestionIndex < questions.length - 1) {
+        if (currentQuestionIndex < filteredQuestions.length - 1) {
             currentQuestionIndex++;
             loadQuestion();
         } else {
             endQuiz();
         }
-    }, 1000); // 1 second delay before moving to the next question
+    }, 1000);
 }
 
-// Skip to Next Question
-function skipQuestion() {
-    clearInterval(timerInterval); // Stop the timer immediately
-    const currentQuestion = questions[currentQuestionIndex];
-
-    // Disable all the options
-    optionsContainer.childNodes.forEach((button) => {
-        button.classList.add("disabled"); // Disable hover effect
-    });
-
-    // Move to the next question immediately
-    if (currentQuestionIndex < questions.length - 1) {
+// Next Question (Skip to next question)
+nextButton.addEventListener('click', () => {
+    if (currentQuestionIndex < filteredQuestions.length - 1) {
         currentQuestionIndex++;
         loadQuestion();
-    } else {
-        endQuiz();
     }
-}
+});
 
-// End Quiz
-function endQuiz() {
-    clearInterval(timerInterval);
-    questionElement.textContent = `Quiz Over! Your score is ${score}/${questions.length}.`;
-    optionsContainer.innerHTML = "";
-    prevButton.style.display = "none";
-    skipButton.style.display = "none"; // Hide the Skip button
-    restartButtonContainer.style.display = "block"; // Show the Restart button
-
-    // Create the Restart button dynamically (if not already present)
-    const restartButton = document.createElement("button");
-    restartButton.textContent = "Restart Quiz";
-    restartButton.onclick = restartQuiz;
-    restartButtonContainer.appendChild(restartButton);
-}
-
-// Restart Quiz
-function restartQuiz() {
-    // Reset quiz variables
-    currentQuestionIndex = 0;
-    score = 0;
-    timeLeft = 15;
-
-    // Hide Restart button and re-enable navigation
-    restartButtonContainer.style.display = "none"; // Hide the Restart button
-    prevButton.style.display = "inline-block"; // Show the previous button again
-    skipButton.style.display = "inline-block"; // Show the Skip button again
-
-    // Start the quiz again from the first question
-    loadQuestion();
-}
-
-// Update Progress Bar
-function updateProgressBar() {
-    const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
-    progressBar.style.width = `${progressPercentage}%`;
-}
-
-// Navigation Buttons
-prevButton.addEventListener("click", () => {
+// Previous Question
+prevButton.addEventListener('click', () => {
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
         loadQuestion();
     }
 });
 
-// Skip Button
-skipButton.addEventListener("click", skipQuestion); // "Skip" button functionality
+// Update Progress Bar
+function updateProgressBar() {
+    const progress = (currentQuestionIndex + 1) / filteredQuestions.length * 100;
+    progressBar.style.width = `${progress}%`;
+}
 
-// Initialize Quiz
-loadQuestion();
+// End Quiz
+function endQuiz() {
+    clearInterval(timerInterval);  // Stop the timer
+    const skippedQuestions = filteredQuestions.length - (correctAnswers + incorrectAnswers);
+    
+    // Display quiz results
+    questionContainer.textContent = `Quiz Over!`;
+    optionsContainer.innerHTML = `
+        <p>Your Results:</p>
+        <p>Correct Answers: ${correctAnswers}</p>
+        <p>Incorrect Answers: ${incorrectAnswers}</p>
+        <p>Skipped Questions: ${skippedQuestions}</p>
+    `;
+    
+    // Hide navigation buttons and timer
+    prevButton.style.display = "none";  // Hide the previous button
+    nextButton.style.display = "none";  // Hide the next button
+    timerDisplay.style.display = "none";  // Hide the timer at the end
+    
+    // Show the restart button
+    restartButtonContainer.style.display = "block";  
+}
+
+// Restart Quiz
+function restartQuiz() {
+    correctAnswers = 0;
+    incorrectAnswers = 0;
+    currentQuestionIndex = 0;
+    timeLeft = 15;
+    restartButtonContainer.style.display = "none";
+    prevButton.style.display = "inline-block";
+    nextButton.style.display = "inline-block";
+    timerDisplay.style.display = "inline-block"; // Show the timer again
+    loadQuestion();
+}
