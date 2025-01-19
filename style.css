@@ -95,6 +95,8 @@ header {
   background-color: white;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Enhance the shadow slightly */
   border-radius: 8px;
+  position: relative; /* Ensure Exit button is positioned within this container */
+  padding-bottom: 60px; /* Added space at the bottom for Exit button */
 }
 
 #question-container {
@@ -170,8 +172,11 @@ header {
 #timer {
   text-align: center;
   font-size: 1.2em;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  position: relative;  /* Ensure it's positioned correctly */
+  width: 100%;  /* Make sure it's fully stretched */
 }
+
 
 /* Progress Bar */
 #progress-bar-container {
@@ -208,4 +213,27 @@ header {
 
 #restart-btn-container button:hover {
   background-color: #45a049;
+}
+
+/* Exit Button */
+#exit-btn {
+  padding: 10px 20px;
+  background-color: #f44336; /* Red background for exit */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute; /* Position the Exit button at the bottom */
+  bottom: 20px; /* Distance from the bottom of the container */
+  left: 50%; /* Center it horizontally */
+  transform: translateX(-50%); /* Center the button correctly */
+}
+
+#exit-btn:hover {
+  background-color: #e53935; /* Darker red on hover */
+}
+
+#exit-btn:focus {
+  outline: 3px solid #e53935; /* Focus styles */
 }

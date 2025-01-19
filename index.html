@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TriviaTime - Python Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
+<body>
     <!-- Header Section -->
     <header>
         <div class="header-content">
@@ -20,72 +21,74 @@
     <section id="category-container">
         <h2>Select a Category</h2>
         <div class="category-grid">
-          <div class="category-card" data-category="Functions and Modules">
-            <div class="category-icon">📝</div>
-            <p>Functions and Modules</p>
-          </div>
-          <div class="category-card" data-category="Object-Oriented Programming (OOP)">
-            <div class="category-icon">👩‍💻</div>
-            <p>Object-Oriented Programming (OOP)</p>
-          </div>
-          <div class="category-card" data-category="Error Handling">
-            <div class="category-icon">⚠️</div>
-            <p>Error Handling</p>
-          </div>
-          <div class="category-card" data-category="Advanced Data Structures">
-            <div class="category-icon">🚀</div>
-            <p>Advanced Data Structures</p>
-          </div>
-          <div class="category-card" data-category="File Handling">
-            <div class="category-icon">📂</div>
-            <p>File Handling</p>
-          </div>
-          <div class="category-card" data-category="Decorators and Generators">
-            <div class="category-icon">🎨</div>
-            <p>Decorators and Generators</p>
-          </div>
-          <div class="category-card" data-category="Regular Expressions">
-            <div class="category-icon">🔍</div>
-            <p>Regular Expressions</p>
-          </div>
-          <div class="category-card" data-category="NumPy and Pandas Basics">
-            <div class="category-icon">📊</div>
-            <p>NumPy and Pandas Basics</p>
-          </div>
-          <div class="category-card" data-category="Libraries and Frameworks">
-            <div class="category-icon">📚</div>
-            <p>Libraries and Frameworks</p>
-          </div>
-          <div class="category-card" data-category="Python Syntax and Grammar">
-            <div class="category-icon">🔡</div>
-            <p>Python Syntax and Grammar</p>
-          </div>
-          <div class="category-card" data-category="Miscellaneous Concepts">
-            <div class="category-icon">🎲</div>
-            <p>Miscellaneous Concepts</p>
-          </div>
-        </div>  
+            <div class="category-card" data-category="Functions and Modules">
+                <div class="category-icon">📝</div>
+                <p>Functions and Modules</p>
+            </div>
+            <div class="category-card" data-category="Object-Oriented Programming (OOP)">
+                <div class="category-icon">👩‍💻</div>
+                <p>Object-Oriented Programming (OOP)</p>
+            </div>
+            <div class="category-card" data-category="Error Handling">
+                <div class="category-icon">⚠️</div>
+                <p>Error Handling</p>
+            </div>
+            <div class="category-card" data-category="Advanced Data Structures">
+                <div class="category-icon">🚀</div>
+                <p>Advanced Data Structures</p>
+            </div>
+            <div class="category-card" data-category="File Handling">
+                <div class="category-icon">📂</div>
+                <p>File Handling</p>
+            </div>
+            <div class="category-card" data-category="Decorators and Generators">
+                <div class="category-icon">🎨</div>
+                <p>Decorators and Generators</p>
+            </div>
+            <div class="category-card" data-category="Regular Expressions">
+                <div class="category-icon">🔍</div>
+                <p>Regular Expressions</p>
+            </div>
+            <div class="category-card" data-category="NumPy and Pandas Basics">
+                <div class="category-icon">📊</div>
+                <p>NumPy and Pandas Basics</p>
+            </div>
+            <div class="category-card" data-category="Libraries and Frameworks">
+                <div class="category-icon">📚</div>
+                <p>Libraries and Frameworks</p>
+            </div>
+            <div class="category-card" data-category="Python Syntax and Grammar">
+                <div class="category-icon">🔡</div>
+                <p>Python Syntax and Grammar</p>
+            </div>
+            <div class="category-card" data-category="Miscellaneous Concepts">
+                <div class="category-icon">🎲</div>
+                <p>Miscellaneous Concepts</p>
+            </div>
+        </div>
     </section>
 
     <!-- Quiz Section -->
     <section id="quiz-container" style="display: none;">
-        <div id="question-container"></div>
-        <div id="options-container"></div>
-        <div id="navigation">
-            <button id="prev-btn" disabled>Prev</button>
-            <button id="next-btn">Skip</button>
-        </div>
-        <div id="timer"></div>
-        <div id="progress-bar-container">
-            <div id="progress-bar"></div>
-        </div>
+      <div id="question-container"></div>
+      <div id="options-container"></div>
+      <div id="navigation">
+          <button id="prev-btn" disabled>Prev</button>
+          <button id="next-btn">Skip</button>
+          <button id="exit-btn" style="display:none;">Exit</button>
+      </div>
+      <div id="timer"></div>
+      <div id="progress-bar-container">
+          <div id="progress-bar"></div>
+      </div>
     </section>
 
     <!-- Restart Button Section -->
-    <section id="restart-btn-container" style="display: none;">
+    <section id="restart-btn-container" class="restart-btn-container" style="display: none;">
         <button onclick="restartQuiz()">Restart Quiz</button>
     </section>
-
+    
     <script src="script.js"></script>
 </body>
+
 </html>
