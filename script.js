@@ -24,20 +24,26 @@ fetch('questions.json')
 
 categoryCards.forEach(card => {
     card.addEventListener('click', () => {
-        const category = card.getAttribute('data-category');
-        filteredQuestions = questions[category] || [];
-        if (filteredQuestions.length) startQuiz();
+        const selectedCategory = card.getAttribute('data-category');
+        const categoryIcon = card.querySelector('.category-icon').textContent;
+        document.getElementById('category-icon').textContent = categoryIcon;
+        document.getElementById('category-name').textContent = selectedCategory;
+        filteredQuestions = questions[selectedCategory] || [];
+        if (filteredQuestions.length) startQuiz(selectedCategory, categoryIcon);
     });
 });
 
-function startQuiz() {
+function startQuiz(selectedCategory, categoryIcon) {
     currentQuestionIndex = 0;
     correctAnswers = 0;
     incorrectAnswers = 0;
     document.getElementById("category-container").style.display = "none";
     quizContainer.style.display = "block";
-    exitButton.style.display = "block";  // Show exit button
-    timerDisplay.style.display = "inline-block"; // Ensure Timer is visible when starting the quiz
+    exitButton.style.display = "block";
+    timerDisplay.style.display = "inline-block";
+    prevButton.style.display = "none";
+    nextButton.style.display = "inline-block";
+    nextButton.style.textAlign = "right";
     loadQuestion();
 }
 
@@ -62,11 +68,11 @@ function loadQuestion() {
     nextButton.style.display = "inline-block"; // Show "Next" button
     prevButton.disabled = currentQuestionIndex === 0;
     nextButton.disabled = false;
+    nextButton.textContent = currentQuestionIndex === filteredQuestions.length - 1 ? "Finish" : "Next";
     updateProgressBar();
     startTimer();
 }
 
-// Handle Answer Selection
 function handleAnswer(selectedIndex) {
     const currentQuestion = filteredQuestions[currentQuestionIndex];
     const optionButtons = optionsContainer.querySelectorAll('.option');
@@ -92,7 +98,7 @@ function handleAnswer(selectedIndex) {
             currentQuestionIndex++;
             loadQuestion();
         }
-    }, 1000);  // Delay before moving to next question or ending the quiz
+    }, 1000);
 }
 
 function handleTimeout() {
@@ -103,7 +109,6 @@ function handleTimeout() {
         button.disabled = true;
         button.classList.add('disabled');
         
-        // Highlight the correct answer if time runs out
         if (index === currentQuestion.correct) {
             button.classList.add('correct');
         }
@@ -172,16 +177,17 @@ prevButton.addEventListener('click', () => {
     }
 });
 
-// Handle Exit button click
 exitButton.addEventListener('click', () => {
-    clearInterval(timerInterval);  // Clear any ongoing timer
-    document.getElementById("category-container").style.display = "block";  // Show categories again
-    quizContainer.style.display = "none";  // Hide quiz
-    exitButton.style.display = "none";  // Hide the exit button
-    restartButtonContainer.style.display = "none";  // Hide the restart button
-    prevButton.style.display = "none";  // Hide the previous button
-    nextButton.style.display = "none";  // Hide the next button
-    timerDisplay.style.display = "none";  // Hide the timer when exiting
+    clearInterval(timerInterval);
+    document.getElementById("category-container").style.display = "block";
+    quizContainer.style.display = "none";
+    exitButton.style.display = "none";
+    restartButtonContainer.style.display = "none";
+    prevButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerDisplay.style.display = "none";
+    document.getElementById('category-icon').textContent = '';
+    document.getElementById('category-name').textContent = '';
 });
 
 function restartQuiz() {
@@ -189,19 +195,14 @@ function restartQuiz() {
     incorrectAnswers = 0;
     currentQuestionIndex = 0;
     timeLeft = 15;
-
-    // Reset the timer styles to center it again
     const timerElement = document.getElementById('timer');
     timerElement.style.position = 'relative';
-    timerElement.style.textAlign = 'center';  // Center the text inside the timer element
-
-    // Reset timer display text
+    timerElement.style.textAlign = 'center';
     timerDisplay.textContent = `Time Left: ${timeLeft}s`;
-
     restartButtonContainer.style.display = "none";
-    prevButton.style.display = "inline-block"; // Ensure Prev button is visible
-    nextButton.style.display = "inline-block"; // Ensure Next button is visible
-    timerDisplay.style.display = "inline-block"; // Ensure Timer is visible when restarting
-    exitButton.style.display = "block"; // Ensure Exit button is visible during quiz
+    prevButton.style.display = "inline-block";
+    nextButton.style.display = "inline-block"; 
+    timerDisplay.style.display = "inline-block"; 
+    exitButton.style.display = "block";
     loadQuestion();
 }
