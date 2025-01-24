@@ -1,134 +1,684 @@
 {
   "Functions and Modules": [
-    { "question": "How do you define a function in Python?", "options": ["function()","def myFunction():","create myFunction()","func myFunction()"], "correct": 1 },
-    { "question": "Which keyword is used to import a module in Python?", "options": ["import", "include", "require", "using"], "correct": 0 },
-    { "question": "What will the following code output? `print(abs(-10))`", "options": ["10", "-10", "None", "Error"], "correct": 0 },
-    { "question": "What is the purpose of the `__name__` variable in Python?", "options": ["To define a function", "To check if a module is being run directly", "To call a constructor", "To store global variables"], "correct": 1 },
-    { "question": "How can you pass a variable-length argument list to a function?", "options": ["*args", "args[]", "varargs", "arguments*"], "correct": 0 },
-    { "question": "What is the output of `len([1, 2, 3])`?", "options": ["3", "2", "None", "Error"], "correct": 0 },
-    { "question": "Which of these is a built-in function in Python?", "options": ["parse()", "open()", "inject()", "start()"], "correct": 1 },
-    { "question": "Which of the following is used to create a module in Python?", "options": ["Creating a file with .py extension", "Using `import` statement", "defining `__main__` function", "Initializing a dictionary"], "correct": 0 },
-    { "question": "What does the `lambda` keyword do?", "options": ["Creates a function", "Defines a variable", "Initializes a class", "Generates a random number"], "correct": 0 },
-    { "question": "Which of the following statements is correct for defining a function with default parameters?", "options": ["def myFunc(x=5):", "def myFunc(x): default=5", "function myFunc(x=5)", "myFunc(x, default=5)"], "correct": 0 }
+    {
+      "question": "How do you define a function in Python?",
+      "options": ["function()", "def myFunction():", "create myFunction()", "func myFunction()"],
+      "correct": 1,
+      "explanation": "In Python, a function is defined using the 'def' keyword followed by the function name and parentheses."
+    },
+    {
+      "question": "Which keyword is used to import a module in Python?",
+      "options": ["import", "include", "require", "using"],
+      "correct": 0,
+      "explanation": "The 'import' keyword is used to bring in modules in Python."
+    },
+    {
+      "question": "What will the following code output? `print(abs(-10))`",
+      "options": ["10", "-10", "None", "Error"],
+      "correct": 0,
+      "explanation": "The abs() function returns the absolute value of the argument, so abs(-10) will return 10."
+    },
+    {
+      "question": "What is the purpose of the `__name__` variable in Python?",
+      "options": ["To define a function", "To check if a module is being run directly", "To call a constructor", "To store global variables"],
+      "correct": 1,
+      "explanation": "`__name__` is used to check if the module is being run directly or imported into another module."
+    },
+    {
+      "question": "How can you pass a variable-length argument list to a function?",
+      "options": ["*args", "args[]", "varargs", "arguments*"],
+      "correct": 0,
+      "explanation": "The '*args' syntax allows you to pass a variable-length list of positional arguments to a function."
+    },
+    {
+      "question": "What is the output of `len([1, 2, 3])`?",
+      "options": ["3", "2", "None", "Error"],
+      "correct": 0,
+      "explanation": "The len() function returns the number of items in an object. The list has 3 elements."
+    },
+    {
+      "question": "Which of these is a built-in function in Python?",
+      "options": ["parse()", "open()", "inject()", "start()"],
+      "correct": 1,
+      "explanation": "The 'open()' function is a built-in function in Python used to open a file."
+    },
+    {
+      "question": "Which of the following is used to create a module in Python?",
+      "options": ["Creating a file with .py extension", "Using `import` statement", "defining `__main__` function", "Initializing a dictionary"],
+      "correct": 0,
+      "explanation": "A module in Python is simply a Python file with a '.py' extension."
+    },
+    {
+      "question": "What does the `lambda` keyword do?",
+      "options": ["Creates a function", "Defines a variable", "Initializes a class", "Generates a random number"],
+      "correct": 0,
+      "explanation": "The 'lambda' keyword is used to create small anonymous functions."
+    },
+    {
+      "question": "Which of the following statements is correct for defining a function with default parameters?",
+      "options": ["def myFunc(x=5):", "def myFunc(x): default=5", "function myFunc(x=5)", "myFunc(x, default=5)"],
+      "correct": 0,
+      "explanation": "To define default parameters in a function, assign default values in the function definition, e.g., `def myFunc(x=5):`."
+    }
   ],
   "Object-Oriented Programming (OOP)": [
-    { "question": "Which method is used to initialize an object in Python?", "options": ["__start__", "__init__", "__begin__", "__new__"], "correct": 1 },
-    { "question": "What is inheritance in Python?", "options": ["A process where one class acquires the properties of another", "A way of initializing a class", "A mechanism for exception handling", "A function for variable-length arguments"], "correct": 0 },
-    { "question": "Which of these methods is used for a string representation of an object?", "options": ["__print__", "__str__", "__repr__", "__str__ and __repr__"], "correct": 1 },
-    { "question": "What is the output of the following code? `class Animal: def __init__(self, name): self.name = name`", "options": ["Error", "None", "An instance of Animal", "Class Animal created"], "correct": 2 },
-    { "question": "What is polymorphism in Python?", "options": ["Multiple classes inheriting from one class", "Ability to take many forms", "Use of multiple inheritance", "A method overloading mechanism"], "correct": 1 },
-    { "question": "Which of the following is an example of encapsulation in Python?", "options": ["Private variables", "Public methods", "Attributes with decorators", "Multiple inheritance"], "correct": 0 },
-    { "question": "What does `super().__init__()` do?", "options": ["Calls the parent class constructor", "Creates a new instance of the class", "Defines a new method", "Prints the parent class details"], "correct": 0 },
-    { "question": "Which of these is an example of abstraction?", "options": ["Hiding the complex implementation details and showing only the functionality", "Direct access to variables and methods", "Overloading methods", "Multiple classes inheriting from one base class"], "correct": 0 },
-    { "question": "Which Python keyword is used to define a class?", "options": ["class", "def", "function", "object"], "correct": 0 },
-    { "question": "What will be the output of the following code? `class Dog: def __init__(self, name): self.name = name; print(self.name)`", "options": ["Error", "None", "A string with the name", "Object of the class Dog"], "correct": 2 }
+    {
+      "question": "Which method is used to initialize an object in Python?",
+      "options": ["__start__", "__init__", "__begin__", "__new__"],
+      "correct": 1,
+      "explanation": "In Python, the `__init__` method is used to initialize an object when a new instance of a class is created."
+    },
+    {
+      "question": "What is inheritance in Python?",
+      "options": ["A process where one class acquires the properties of another", "A way of initializing a class", "A mechanism for exception handling", "A function for variable-length arguments"],
+      "correct": 0,
+      "explanation": "Inheritance is a feature in object-oriented programming where a class inherits properties and methods from another class."
+    },
+    {
+      "question": "Which of these methods is used for a string representation of an object?",
+      "options": ["__print__", "__str__", "__repr__", "__str__ and __repr__"],
+      "correct": 1,
+      "explanation": "The `__str__` method returns a string representation of an object that is user-friendly."
+    },
+    {
+      "question": "What is the output of the following code? `class Animal: def __init__(self, name): self.name = name`",
+      "options": ["Error", "None", "An instance of Animal", "Class Animal created"],
+      "correct": 2,
+      "explanation": "The code defines a class and creates an instance of the class when it is called."
+    },
+    {
+      "question": "What is polymorphism in Python?",
+      "options": ["Multiple classes inheriting from one class", "Ability to take many forms", "Use of multiple inheritance", "A method overloading mechanism"],
+      "correct": 1,
+      "explanation": "Polymorphism allows objects of different classes to be treated as objects of a common superclass. The actual method called is determined at runtime."
+    },
+    {
+      "question": "Which of the following is an example of encapsulation in Python?",
+      "options": ["Private variables", "Public methods", "Attributes with decorators", "Multiple inheritance"],
+      "correct": 0,
+      "explanation": "Encapsulation refers to the bundling of data and methods that operate on the data within a single unit, usually in the form of private variables."
+    },
+    {
+      "question": "What does `super().__init__()` do?",
+      "options": ["Calls the parent class constructor", "Creates a new instance of the class", "Defines a new method", "Prints the parent class details"],
+      "correct": 0,
+      "explanation": "The `super()` function is used to call the constructor or methods from the parent class."
+    },
+    {
+      "question": "Which of these is an example of abstraction?",
+      "options": ["Hiding the complex implementation details and showing only the functionality", "Direct access to variables and methods", "Overloading methods", "Multiple classes inheriting from one base class"],
+      "correct": 0,
+      "explanation": "Abstraction is the process of hiding the complex implementation details and showing only the necessary functionality to the user."
+    },
+    {
+      "question": "Which Python keyword is used to define a class?",
+      "options": ["class", "def", "function", "object"],
+      "correct": 0,
+      "explanation": "In Python, the 'class' keyword is used to define a class."
+    },
+    {
+      "question": "What will be the output of the following code? `class Dog: def __init__(self, name): self.name = name; print(self.name)`",
+      "options": ["Error", "None", "A string with the name", "Object of the class Dog"],
+      "correct": 2,
+      "explanation": "The code will print the value of the 'name' attribute of the 'Dog' object, which is a string."
+    }
   ],
   "Error Handling": [
-    { "question": "Which keyword is used to handle exceptions in Python?", "options": ["throw", "try", "catch", "except"], "correct": 1 },
-    { "question": "What is the correct way to raise an exception in Python?", "options": ["raise Exception('Error')", "throw Exception('Error')", "raise 'Error'", "None of the above"], "correct": 0 },
-    { "question": "Which block is used to execute code that may raise an exception?", "options": ["else", "finally", "try", "catch"], "correct": 2 },
-    { "question": "How can you catch multiple exceptions in Python?", "options": ["Using multiple `except` blocks", "Using a tuple in `except`", "Using `try` only", "Using `else` only"], "correct": 1 },
-    { "question": "What is the purpose of `finally` block in Python?", "options": ["To catch exceptions", "To execute code no matter what", "To define global variables", "To log errors"], "correct": 1 },
-    { "question": "What will be the result of `try: 10/0 except ZeroDivisionError: pass`?", "options": ["ZeroDivisionError", "None", "Error is silently ignored", "Execution will continue with no error"], "correct": 2 },
-    { "question": "How do you create a custom exception class in Python?", "options": ["class CustomError(Exception):", "raise CustomError()", "def CustomError():", "None of the above"], "correct": 0 },
-    { "question": "What will the code `try: raise Exception('An error occurred') except Exception as e: print(e)` output?", "options": ["None", "An error occurred", "Exception", "Error occurred"], "correct": 1 },
-    { "question": "What is the function used to get a stack trace in Python?", "options": ["traceback.format_exc()", "traceback.get_error()", "traceback.print_exc()", "traceback.stack()"], "correct": 0 },
-    { "question": "Which of the following statements is true about the `raise` keyword?", "options": ["It can only raise built-in exceptions", "It can be used to raise custom exceptions", "It is only used for debugging", "It is used to skip an exception"], "correct": 1 }
+    {
+      "question": "Which keyword is used to handle exceptions in Python?",
+      "options": ["throw", "try", "catch", "except"],
+      "correct": 1,
+      "explanation": "The 'try' keyword is used to define a block of code that will be tested for exceptions."
+    },
+    {
+      "question": "What is the correct way to raise an exception in Python?",
+      "options": ["raise Exception('Error')", "throw Exception('Error')", "raise 'Error'", "None of the above"],
+      "correct": 0,
+      "explanation": "The correct syntax for raising an exception is 'raise Exception('Error')'. This raises an error with the specified message."
+    },
+    {
+      "question": "Which block is used to execute code that may raise an exception?",
+      "options": ["else", "finally", "try", "catch"],
+      "correct": 2,
+      "explanation": "The 'try' block is used to execute code that may potentially raise an exception."
+    },
+    {
+      "question": "How can you catch multiple exceptions in Python?",
+      "options": ["Using multiple except blocks", "Using a tuple in except", "Using try only", "Using else only"],
+      "correct": 1,
+      "explanation": "You can catch multiple exceptions by using a tuple in the 'except' block (e.g., except (TypeError, ValueError):)."
+    },
+    {
+      "question": "What is the purpose of finally block in Python?",
+      "options": ["To catch exceptions", "To execute code no matter what", "To define global variables", "To log errors"],
+      "correct": 1,
+      "explanation": "The 'finally' block is used to ensure that specific code runs, regardless of whether an exception was raised or not."
+    },
+    {
+      "question": "What will be the result of try: 10/0 except ZeroDivisionError: pass?",
+      "options": ["ZeroDivisionError", "None", "Error is silently ignored", "Execution will continue with no error"],
+      "correct": 2,
+      "explanation": "The 'pass' statement in the 'except' block will silently ignore the ZeroDivisionError and execution will continue with no error."
+    },
+    {
+      "question": "How do you create a custom exception class in Python?",
+      "options": ["class CustomError(Exception):", "raise CustomError()", "def CustomError():", "None of the above"],
+      "correct": 0,
+      "explanation": "To create a custom exception class, you must inherit from the base 'Exception' class, like 'class CustomError(Exception):'."
+    },
+    {
+      "question": "What will the code try: raise Exception('An error occurred') except Exception as e: print(e) output?",
+      "options": ["None", "An error occurred", "Exception", "Error occurred"],
+      "correct": 1,
+      "explanation": "This code will raise an exception with the message 'An error occurred', and the 'except' block will catch it and print the message."
+    },
+    {
+      "question": "What is the function used to get a stack trace in Python?",
+      "options": ["traceback.format_exc()", "traceback.get_error()", "traceback.print_exc()", "traceback.stack()"],
+      "correct": 0,
+      "explanation": "The 'traceback.format_exc()' function is used to get a string representation of the most recent exception traceback."
+    },
+    {
+      "question": "Which of the following statements is true about the raise keyword?",
+      "options": ["It can only raise built-in exceptions", "It can be used to raise custom exceptions", "It is only used for debugging", "It is used to skip an exception"],
+      "correct": 1,
+      "explanation": "The 'raise' keyword can be used to raise both built-in and custom exceptions in Python."
+    }
   ],
   "Advanced Data Structures": [
-    { "question": "Which of the following is a mutable data structure in Python?", "options": ["Tuple", "Set", "String", "Integer"], "correct": 1 },
-    { "question": "What is the result of `my_dict = {1: 'a', 2: 'b'}; my_dict[3]`?", "options": ["KeyError", "None", "'b'", "'a'"], "correct": 0 },
-    { "question": "How do you create a tuple in Python?", "options": ["(1, 2, 3)", "[1, 2, 3]", "{1, 2, 3}", "tuple(1, 2, 3)"], "correct": 0 },
-    { "question": "Which method removes duplicates from a list in Python?", "options": ["remove_duplicates()", "unique()", "set()", "list.unique()"], "correct": 2 },
-    { "question": "How can you check if a key exists in a dictionary?", "options": ["key in dictionary", "dictionary.contains(key)", "key.has_key()", "key.exists()"], "correct": 0 },
-    { "question": "What is a set in Python?", "options": ["Ordered collection of items", "Unordered collection of unique items", "List with unique items", "A dictionary without values"], "correct": 1 },
-    { "question": "What does the following list comprehension do? `[x**2 for x in range(5)]`", "options": ["Squares numbers from 1 to 5", "Squares numbers from 0 to 4", "Squares numbers from 1 to 4", "Returns squares of numbers less than 5"], "correct": 1 },
-    { "question": "What is the output of `my_set = {1, 2, 3}; my_set.add(4)`?", "options": ["Error", "{1, 2, 3, 4}", "{1, 2, 3}", "{4}"], "correct": 1 },
-    { "question": "What is the difference between `list` and `tuple` in Python?", "options": ["Lists are immutable; tuples are mutable", "Lists are mutable; tuples are immutable", "Both are mutable", "Both are immutable"], "correct": 1 },
-    { "question": "How do you access the value of a specific key in a dictionary?", "options": ["my_dict[key]", "my_dict.key", "my_dict.get(key)", "Both 1 and 3"], "correct": 3 }
+    {
+        "question": "Which of the following is the primary advantage of using a heap over a list in Python?",
+        "options": ["Efficient search operations", "Efficient insertion and deletion", "Efficient sorting", "Efficient element access"],
+        "correct": 1,
+        "explanation": "Heaps provide efficient insertion and deletion operations, particularly for priority queue implementations, with time complexity of O(log n) for both."
+    },
+    {
+        "question": "What is the time complexity of accessing an element by index in a Python list?",
+        "options": ["O(1)", "O(log n)", "O(n)", "O(n^2)"],
+        "correct": 0,
+        "explanation": "In Python, accessing an element by index in a list is O(1) since lists are implemented as dynamic arrays."
+    },
+    {
+        "question": "Which data structure in Python is best suited for implementing a queue?",
+        "options": ["List", "Set", "Deque", "Tuple"],
+        "correct": 2,
+        "explanation": "A 'deque' (double-ended queue) is ideal for implementing a queue because it allows efficient O(1) operations for appending and popping elements from both ends."
+    },
+    {
+        "question": "What is the time complexity of inserting an element into a set in Python?",
+        "options": ["O(1)", "O(log n)", "O(n)", "O(n^2)"],
+        "correct": 0,
+        "explanation": "In Python, inserting an element into a set is O(1) on average, because sets are implemented as hash tables."
+    },
+    {
+        "question": "Which of the following methods is used to add an element to a Python deque?",
+        "options": ["append()", "push()", "enqueue()", "insert()"],
+        "correct": 0,
+        "explanation": "The 'append()' method is used to add an element to the right side of a Python deque."
+    },
+    {
+        "question": "What is the primary characteristic of a trie data structure?",
+        "options": ["It stores key-value pairs in a binary tree", "It is used for fast lookups in sorted data", "It stores strings in a tree-like structure", "It uses a hash table for storing data"],
+        "correct": 2,
+        "explanation": "A trie is a tree-like data structure used for storing strings where each node represents a character of the string. It allows for fast prefix-based searching."
+    },
+    {
+        "question": "What is the time complexity of searching for an element in a balanced binary search tree (BST)?",
+        "options": ["O(1)", "O(log n)", "O(n)", "O(n^2)"],
+        "correct": 1,
+        "explanation": "In a balanced binary search tree (BST), searching for an element has a time complexity of O(log n), because it reduces the search space by half with each comparison."
+    },
+    {
+        "question": "Which of the following is the primary use case for a hash table?",
+        "options": ["Sorted data storage", "Fast element lookups", "Efficient range queries", "Maintaining order of elements"],
+        "correct": 1,
+        "explanation": "A hash table is primarily used for fast element lookups by mapping keys to values, providing O(1) average time complexity for lookups."
+    },
+    {
+        "question": "Which of the following data structures is used to implement a depth-first search (DFS) algorithm?",
+        "options": ["Queue", "Stack", "Set", "List"],
+        "correct": 1,
+        "explanation": "A stack is used to implement a depth-first search (DFS) algorithm because it follows the LIFO (Last In, First Out) principle to explore nodes in depth before backtracking."
+    },
+    {
+        "question": "In a graph, what does a directed edge represent?",
+        "options": ["A relationship where direction matters", "A two-way relationship", "A circular relationship", "A weighted connection"],
+        "correct": 0,
+        "explanation": "A directed edge represents a one-way relationship between two vertices in a graph, indicating that movement is allowed in one direction only."
+    }
   ],
   "File Handling": [
-    { "question": "Which method is used to read a file in Python?", "options": ["read()", "open()", "file()", "read_file()"], "correct": 0 },
-    { "question": "What will be the result of `open('file.txt', 'r')` if the file doesn't exist?", "options": ["An empty file is created", "FileNotFoundError", "None", "It returns an empty string"], "correct": 1 },
-    { "question": "Which mode is used to append data to an existing file in Python?", "options": ["'w'", "'r'", "'a'", "'x'"], "correct": 2 },
-    { "question": "Which function is used to close a file after reading or writing in Python?", "options": ["close_file()", "file.close()", "file.close()", "close()"], "correct": 1 },
-    { "question": "What does the `with` statement do when handling files?", "options": ["Opens a file without closing it", "Ensures a file is properly closed after reading/writing", "Handles exceptions in files", "None of the above"], "correct": 1 },
-    { "question": "How do you write data to a file in Python?", "options": ["write(data)", "open(data)", "file.write(data)", "None of the above"], "correct": 2 },
-    { "question": "What is the default mode for `open()` if no mode is specified?", "options": ["'w'", "'r'", "'a'", "'x'"], "correct": 1 },
-    { "question": "What will happen if you try to open a file in write mode ('w') that does not exist?", "options": ["It throws an error", "Creates the file", "It returns None", "It opens a new file in read mode"], "correct": 1 },
-    { "question": "How can you check if a file exists before attempting to open it?", "options": ["Using `os.path.exists()`", "Using `file.exists()`", "Using `os.open()`", "By opening the file in read mode"], "correct": 0 },
-    { "question": "Which of these is the correct way to read all lines from a file in Python?", "options": ["file.read()", "file.readlines()", "file.get_lines()", "file.readlines_all()"], "correct": 1 }
+    {
+        "question": "Which Python function is used to open a file for reading?",
+        "options": ["open()", "read()", "openfile()", "fileopen()"],
+        "correct": 0,
+        "explanation": "The 'open()' function is used to open a file in Python, with the 'r' mode indicating reading."
+    },
+    {
+        "question": "What is the default mode used by the 'open()' function in Python?",
+        "options": ["r", "w", "a", "rb"],
+        "correct": 0,
+        "explanation": "The default mode for opening a file in Python is 'r', which stands for reading the file."
+    },
+    {
+        "question": "What is the purpose of the 'w' mode when opening a file in Python?",
+        "options": ["Write content to the file", "Read content from the file", "Append content to the file", "Open the file in binary mode"],
+        "correct": 0,
+        "explanation": "The 'w' mode is used for writing content to a file. If the file does not exist, it will be created; if it exists, it will be overwritten."
+    },
+    {
+        "question": "Which method is used to read all the content of a file in Python?",
+        "options": ["read()", "readlines()", "seek()", "write()"],
+        "correct": 0,
+        "explanation": "The 'read()' method is used to read all the content from a file at once."
+    },
+    {
+        "question": "What does the 'seek()' method do in Python file handling?",
+        "options": ["Moves the file pointer to a specified position", "Reads content from the file", "Closes the file", "Writes content to the file"],
+        "correct": 0,
+        "explanation": "The 'seek()' method moves the file pointer to a specified position, allowing random access to the file's content."
+    },
+    {
+        "question": "How can you append data to a file in Python without overwriting its existing content?",
+        "options": ["open(file, 'r')", "open(file, 'w')", "open(file, 'a')", "open(file, 'rb')"],
+        "correct": 2,
+        "explanation": "The 'a' mode is used to open a file in append mode, which allows data to be added to the end of the file without overwriting existing content."
+    },
+    {
+        "question": "Which method is used to write content to a file in Python?",
+        "options": ["write()", "writelines()", "append()", "save()"],
+        "correct": 0,
+        "explanation": "The 'write()' method is used to write content to a file. 'writelines()' can be used to write a list of strings."
+    },
+    {
+        "question": "How do you read a file line by line in Python?",
+        "options": ["read()", "readlines()", "for line in file:", "open(file, 'r')"],
+        "correct": 2,
+        "explanation": "To read a file line by line, you can iterate over the file object directly, like 'for line in file:'."
+    },
+    {
+        "question": "What will happen if you try to read a file that doesn't exist in Python using the 'open()' function?",
+        "options": ["It will create the file", "It will raise a FileNotFoundError", "It will return an empty string", "It will open the file in read-only mode"],
+        "correct": 1,
+        "explanation": "If you try to read a file that doesn't exist, Python will raise a 'FileNotFoundError'."
+    },
+    {
+        "question": "Which statement is used to close a file in Python after performing file operations?",
+        "options": ["close()", "end()", "stop()", "exit()"],
+        "correct": 0,
+        "explanation": "The 'close()' method is used to close a file after performing operations, ensuring all changes are saved and resources are freed."
+    }
   ],
   "Decorators and Generators": [
-    { "question": "What is a Python decorator?", "options": ["A function that modifies the behavior of another function", "A generator that yields multiple values", "A method for creating static variables", "A function to create an abstract class"], "correct": 0 },
-    { "question": "Which decorator is used to define a class method in Python?", "options": ["@staticmethod", "@classmethod", "@property", "@abstractmethod"], "correct": 1 },
-    { "question": "What does the `yield` keyword do in a generator function?", "options": ["It returns a value and suspends execution", "It defines a static method", "It ends the function", "It is used to throw exceptions"], "correct": 0 },
-    { "question": "Which of the following is the correct syntax for defining a generator function?", "options": ["def my_gen(): yield x", "def my_gen(): return x", "generator my_gen(): yield x", "None of the above"], "correct": 0 },
-    { "question": "What is the purpose of the `@staticmethod` decorator?", "options": ["To define a method that doesn’t operate on an instance", "To define a method that works only with instances", "To define a class variable", "To create a function inside a class"], "correct": 0 },
-    { "question": "How do you call a generator function?", "options": ["Simply by calling the function", "By calling next() on the generator object", "By using for-loop only", "Both 1 and 2"], "correct": 3 },
-    { "question": "Which of the following will not work as a decorator in Python?", "options": ["@classmethod", "@staticmethod", "@property", "@abstractmethod"], "correct": 3 },
-    { "question": "What will the code `def gen(): yield 1; yield 2` output if `next(gen())` is called twice?", "options": ["1, 2", "None", "1, 1", "2, 2"], "correct": 0 },
-    { "question": "What is the result of `@property` decorator?", "options": ["It defines a property that can be accessed as an attribute", "It defines a class method", "It defines an abstract method", "None of the above"], "correct": 0 },
-    { "question": "What is the difference between `@staticmethod` and `@classmethod`?", "options": ["@staticmethod does not take `self` as an argument; @classmethod takes `cls`", "@classmethod does not take `self` as an argument; @staticmethod takes `cls`", "There is no difference", "None of the above"], "correct": 0 }
+    {
+        "question": "What is the main purpose of decorators in Python?",
+        "options": ["To modify the behavior of a function or method", "To create new classes", "To handle exceptions", "To manage memory usage"],
+        "correct": 0,
+        "explanation": "Decorators are used to modify the behavior of functions or methods. They can be applied to functions to add functionality before or after the function call."
+    },
+    {
+        "question": "How do you define a decorator in Python?",
+        "options": ["By defining a function that takes another function as an argument and returns a function", "By using a special keyword", "By subclassing the function", "By using the 'def' keyword inside the function"],
+        "correct": 0,
+        "explanation": "A decorator is a function that takes another function as an argument and returns a new function that can alter the behavior of the original function."
+    },
+    {
+        "question": "Which of the following is the correct way to apply a decorator to a function in Python?",
+        "options": ["@decorator_name", "decorator_name()", "apply(decorator_name)", "function(decorator_name)"],
+        "correct": 0,
+        "explanation": "To apply a decorator, you place the decorator name prefixed with '@' above the function definition."
+    },
+    {
+        "question": "What does the following decorator do in Python? \n@timer\ndef my_function():",
+        "options": ["It times the execution of the function", "It adds a delay to the function", "It catches exceptions", "It returns the result of the function"],
+        "correct": 0,
+        "explanation": "The '@timer' decorator would typically be used to measure the time taken for the execution of 'my_function'."
+    },
+    {
+        "question": "What is the purpose of the 'functools.wraps()' function in Python decorators?",
+        "options": ["To preserve the original function's metadata", "To optimize the decorator performance", "To cache the function results", "To add logging functionality"],
+        "correct": 0,
+        "explanation": "'functools.wraps()' is used to preserve the metadata (like the name, docstring, etc.) of the original function when applying a decorator."
+    },
+    {
+      "question": "What is a generator in Python?",
+      "options": ["A function that returns an iterator", "A class that contains a collection of items", "A built-in method for generating random numbers", "A special type of list"],
+      "correct": 0,
+      "explanation": "A generator in Python is a function that returns an iterator using the 'yield' keyword. It produces values one at a time, rather than returning all values at once."
+    },
+    {
+      "question": "What is the purpose of the 'yield' keyword in Python?",
+      "options": ["To pause the function and return a value", "To define a class method", "To define a variable", "To break out of a loop"],
+      "correct": 0,
+      "explanation": "The 'yield' keyword is used in generators to yield a value and pause the execution of the function. When the function is called again, it continues from where it left off."
+    },
+    {
+      "question": "Which of the following is NOT a characteristic of a Python generator?",
+      "options": ["Generators are memory efficient", "Generators can only be traversed once", "Generators can return all values at once", "Generators maintain the state between iterations"],
+      "correct": 2,
+      "explanation": "Generators do not return all values at once. They yield values one by one, which makes them memory efficient."
+    },
+    {
+      "question": "What will happen if you try to access the next value from a generator after all values have been yielded?",
+      "options": ["It will raise a StopIteration exception", "It will return None", "It will repeat the values", "It will reset the generator"],
+      "correct": 0,
+      "explanation": "Once all values from a generator have been yielded, trying to get the next value will raise a 'StopIteration' exception."
+    },
+    {
+      "question": "Which of the following is an example of a valid generator function in Python?",
+      "options": ["def my_gen(): return [1, 2, 3]","def my_gen(): yield 1; yield 2; yield 3","def my_gen(): pass","def my_gen(): print(1, 2, 3)"],
+      "correct": 1,
+      "explanation": "A valid generator function uses the 'yield' keyword to return values one at a time, as shown in the second option."
+    }
   ],
   "Regular Expressions": [
-    { "question": "Which module is used to work with regular expressions in Python?", "options": ["regex", "re", "reexp", "regexp"], "correct": 1 },
-    { "question": "Which of the following is the correct syntax to find a match in Python using regular expressions?", "options": ["re.search('pattern', string)", "re.match('pattern', string)", "re.find('pattern', string)", "re.search(string, 'pattern')"], "correct": 0 },
-    { "question": "What is the `.` (dot) metacharacter in regular expressions?", "options": ["Matches any character except a newline", "Matches only a space", "Matches digits", "Matches the start of a string"], "correct": 0 },
-    { "question": "Which of the following regular expressions matches a word starting with 'A'?", "options": ["^A", "A$", "A*", "^A\\w+"], "correct": 3 },
-    { "question": "What does the `re.findall()` method do?", "options": ["Returns the first match", "Returns all non-overlapping matches", "Finds a single match", "Finds matches and prints them"], "correct": 1 },
-    { "question": "How do you match a digit in a regular expression?", "options": ["\\d", "\\D", "[0-9]", "Both 1 and 3"], "correct": 3 },
-    { "question": "Which of the following is the correct way to use a regular expression to replace a string in Python?", "options": ["re.sub(pattern, replacement, string)", "re.replace(pattern, string)", "re.replace(string, pattern, replacement)", "re.replace(pattern, string, count)"], "correct": 0 },
-    { "question": "What does `\\b` do in a regular expression?", "options": ["Matches a word boundary", "Matches a backslash", "Matches any non-word character", "Matches a space"], "correct": 0 },
-    { "question": "Which of these characters is used to escape special characters in regular expressions?", "options": ["\\", "/", "_", ":"], "correct": 0 },
-    { "question": "What will the regex `r'\\d{3}-\\d{2}-\\d{4}'` match?", "options": ["A US phone number", "A social security number", "A date", "An email address"], "correct": 1 }
+    {
+      "question": "What does the 're' module in Python do?",
+      "options": ["It allows you to work with regular expressions", "It enables interaction with databases", "It is used for file handling", "It is a graphical user interface (GUI) toolkit"],
+      "correct": 0,
+      "explanation": "The 're' module in Python provides support for working with regular expressions, allowing pattern matching and text manipulation."
+    },
+    {
+        "question": "Which method is used to search for a pattern in a string using the 're' module?",
+        "options": ["re.match()", "re.search()", "re.find()", "re.search() and re.match() are the same"],
+        "correct": 1,
+        "explanation": "The 're.search()' method searches through the entire string for the first match of the specified pattern."
+    },
+    {
+        "question": "What does the 're.match()' method do in Python?",
+        "options": ["It checks if the pattern matches at the start of the string", "It checks if the pattern matches anywhere in the string", "It returns the first match of a pattern", "It replaces the pattern with a given string"],
+        "correct": 0,
+        "explanation": "The 're.match()' method checks if the pattern matches at the beginning of the string, returning a match object if successful."
+    },
+    {
+        "question": "What will the following regular expression match? '^[A-Za-z]+$'",
+        "options": ["A string with only letters", "A string with at least one letter", "A string with only digits", "A string with letters and numbers"],
+        "correct": 0,
+        "explanation": "The regular expression '^[A-Za-z]+$' matches a string that consists entirely of one or more uppercase or lowercase alphabetic characters."
+    },
+    {
+        "question": "What does the '^' symbol represent in a regular expression pattern?",
+        "options": ["Beginning of the string", "End of the string", "Any character", "Whitespace"],
+        "correct": 0,
+        "explanation": "The '^' symbol in a regular expression denotes the beginning of the string, meaning the pattern must match from the start of the string."
+    },
+    {
+      "question": "Which of the following regular expressions will match any digit (0-9)?",
+      "options": ["\\d", "\\D", "[0-9]", "[a-z]"],
+      "correct": 0,
+      "explanation": "The '\\d' regular expression matches any digit (0-9), while '\\D' matches any non-digit, and '[0-9]' is an alternative way to match digits."
+    },
+    {
+        "question": "How would you replace all occurrences of 'apple' with 'orange' in a string using the 're' module?",
+        "options": ["re.replace('apple', 'orange')", "re.sub('apple', 'orange')", "re.replace('apple', 'orange', string)", "re.sub('apple', 'orange', string)"],
+        "correct": 3,
+        "explanation": "The 're.sub()' method is used to replace all occurrences of a pattern ('apple') with another string ('orange') in a given string."
+    },
+    {
+        "question": "What does the '$' symbol represent in a regular expression pattern?",
+        "options": ["End of the string", "Any character", "Beginning of the string", "Whitespace"],
+        "correct": 0,
+        "explanation": "The '$' symbol in a regular expression denotes the end of the string, meaning the pattern must match at the end of the string."
+    },
+    {
+        "question": "Which of the following regular expressions matches one or more whitespace characters?",
+        "options": ["\\s+", "\\S+", "\\d+", "[A-Za-z]"],
+        "correct": 0,
+        "explanation": "The '\\s+' regular expression matches one or more whitespace characters (spaces, tabs, or newlines)."
+    },
+    {
+        "question": "Which function from the 're' module is used to compile a regular expression pattern?",
+        "options": ["re.compile()", "re.match()", "re.search()", "re.sub()"],
+        "correct": 0,
+        "explanation": "The 're.compile()' function compiles a regular expression pattern into a regex object, which can then be used for multiple matches or searches."
+    }  
   ],
   "NumPy and Pandas Basics": [
-    { "question": "Which of the following is a fundamental package for numerical computing in Python?", "options": ["NumPy", "Pandas", "SciPy", "Matplotlib"], "correct": 0 },
-    { "question": "How do you create a NumPy array from a Python list?", "options": ["numpy.array(list)", "list.numpy()", "np.array(list)", "array(list)"], "correct": 2 },
-    { "question": "What does the `shape` attribute in a NumPy array represent?", "options": ["The total number of elements", "The number of dimensions", "The size of each dimension", "The data type of elements"], "correct": 2 },
-    { "question": "Which of the following methods is used to read a CSV file in Pandas?", "options": ["pd.read_csv()", "pd.open_csv()", "pd.load_csv()", "pandas.read_csv()"], "correct": 0 },
-    { "question": "What does the `head()` function do in Pandas?", "options": ["Displays the first few rows of a DataFrame", "Displays the column names", "Counts the rows of the DataFrame", "None of the above"], "correct": 0 },
-    { "question": "How do you convert a Pandas DataFrame column to a NumPy array?", "options": ["df[column].to_numpy()", "df[column].array()", "df[column].convert()", "df[column].numpy()"], "correct": 0 },
-    { "question": "Which function is used to generate a random array in NumPy?", "options": ["numpy.random()", "np.random.rand()", "np.random()", "random.array()"], "correct": 1 },
-    { "question": "Which of the following is true about Pandas Series?", "options": ["It is like a DataFrame with a single column", "It is a list of numbers", "It can only hold strings", "It is equivalent to a NumPy array"], "correct": 0 },
-    { "question": "How do you select a specific row in a Pandas DataFrame?", "options": ["df[0]", "df.iloc[0]", "df.select(0)", "df.row(0)"], "correct": 1 },
-    { "question": "What does the NumPy function `np.zeros()` do?", "options": ["Creates an array of zeros", "Creates an array of ones", "Creates an empty array", "None of the above"], "correct": 0 }
+    {
+      "question": "Which of the following is a fundamental package for numerical computing in Python?",
+      "options": ["NumPy", "Pandas", "SciPy", "Matplotlib"],
+      "correct": 0,
+      "explanation": "NumPy is the fundamental package for numerical computing in Python, offering support for arrays, matrices, and a wide range of mathematical functions."
+    },
+    {
+      "question": "How do you create a NumPy array from a Python list?",
+      "options": ["numpy.array(list)", "list.numpy()", "np.array(list)", "array(list)"],
+      "correct": 2,
+      "explanation": "The correct way to create a NumPy array from a Python list is by using `np.array(list)` where `np` is the alias for the NumPy package."
+    },
+    {
+      "question": "What does the shape attribute in a NumPy array represent?",
+      "options": ["The total number of elements", "The number of dimensions", "The size of each dimension", "The data type of elements"],
+      "correct": 2,
+      "explanation": "The `shape` attribute of a NumPy array gives the dimensions of the array, which tells you how many elements there are along each axis."
+    },
+    {
+      "question": "Which of the following methods is used to read a CSV file in Pandas?",
+      "options": ["pd.read_csv()", "pd.open_csv()", "pd.load_csv()", "pandas.read_csv()"],
+      "correct": 0,
+      "explanation": "To read a CSV file in Pandas, the method `pd.read_csv()` is used."
+    },
+    {
+      "question": "What does the head() function do in Pandas?",
+      "options": ["Displays the first few rows of a DataFrame", "Displays the column names", "Counts the rows of the DataFrame", "None of the above"],
+      "correct": 0,
+      "explanation": "The `head()` function in Pandas displays the first few rows of a DataFrame, by default showing the first 5 rows."
+    },
+    {
+      "question": "How do you convert a Pandas DataFrame column to a NumPy array?",
+      "options": ["df[column].to_numpy()", "df[column].array()", "df[column].convert()", "df[column].numpy()"],
+      "correct": 0,
+      "explanation": "To convert a Pandas DataFrame column to a NumPy array, use `df[column].to_numpy()`."
+    },
+    {
+      "question": "Which function is used to generate a random array in NumPy?",
+      "options": ["numpy.random()", "np.random.rand()", "np.random()", "random.array()"],
+      "correct": 1,
+      "explanation": "The `np.random.rand()` function is used to generate an array with random values between 0 and 1 in NumPy."
+    },
+    {
+      "question": "Which of the following is true about Pandas Series?",
+      "options": ["It is like a DataFrame with a single column", "It is a list of numbers", "It can only hold strings", "It is equivalent to a NumPy array"],
+      "correct": 0,
+      "explanation": "A Pandas Series is like a DataFrame with a single column, providing a labeled array similar to a NumPy array."
+    },
+    {
+      "question": "How do you select a specific row in a Pandas DataFrame?",
+      "options": ["df[0]", "df.iloc[0]", "df.select(0)", "df.row(0)"],
+      "correct": 1,
+      "explanation": "To select a specific row in a Pandas DataFrame, use the `iloc[]` indexer, such as `df.iloc[0]` for the first row."
+    },
+    {
+      "question": "What does the NumPy function np.zeros() do?",
+      "options": ["Creates an array of zeros", "Creates an array of ones", "Creates an empty array", "None of the above"],
+      "correct": 0,
+      "explanation": "The `np.zeros()` function creates an array of zeros, with the specified shape."
+    }    
   ],
   "Libraries and Frameworks": [
-    { "question": "Which Python library is primarily used for data visualization?", "options": ["Matplotlib", "Pandas", "Flask", "Django"], "correct": 0 },
-    { "question": "Which of the following is a Python framework used for web development?", "options": ["Flask", "NumPy", "Matplotlib", "Pandas"], "correct": 0 },
-    { "question": "Which Python library would you use for machine learning?", "options": ["Pandas", "NumPy", "SciPy", "scikit-learn"], "correct": 3 },
-    { "question": "Which of these is used to create interactive visualizations in Python?", "options": ["Plotly", "Flask", "TensorFlow", "scikit-learn"], "correct": 0 },
-    { "question": "Which Python library is designed for scientific computing?", "options": ["NumPy", "Flask", "Matplotlib", "Pandas"], "correct": 0 },
-    { "question": "Which of the following is NOT a Python web framework?", "options": ["Flask", "Django", "Matplotlib", "FastAPI"], "correct": 2 },
-    { "question": "In which library would you typically use `DataFrame` structures?", "options": ["Pandas", "NumPy", "Matplotlib", "SciPy"], "correct": 0 },
-    { "question": "Which of the following is used for deep learning in Python?", "options": ["TensorFlow", "Flask", "scikit-learn", "NumPy"], "correct": 0 },
-    { "question": "Which Python library is used for statistical computations and data analysis?", "options": ["SciPy", "NumPy", "Pandas", "Django"], "correct": 0 },
-    { "question": "Which of these libraries is commonly used to create web APIs in Python?", "options": ["Flask", "Pandas", "NumPy", "TensorFlow"], "correct": 0 }
+    {
+      "question": "Which Python library is primarily used for data visualization?",
+      "options": ["Matplotlib", "Pandas", "Flask", "Django"],
+      "correct": 0,
+      "explanation": "Matplotlib is the most commonly used library in Python for creating static, animated, and interactive visualizations."
+    },
+    {
+      "question": "Which of the following is a Python framework used for web development?",
+      "options": ["Flask", "NumPy", "Matplotlib", "Pandas"],
+      "correct": 0,
+      "explanation": "Flask is a web framework in Python used for developing web applications, while the other options are for data manipulation, numerical computing, and visualization."
+    },
+    {
+      "question": "Which Python library would you use for machine learning?",
+      "options": ["Pandas", "NumPy", "SciPy", "scikit-learn"],
+      "correct": 3,
+      "explanation": "scikit-learn is a Python library used for machine learning. It provides simple and efficient tools for data analysis and modeling."
+    },
+    {
+      "question": "Which of these is used to create interactive visualizations in Python?",
+      "options": ["Plotly", "Flask", "TensorFlow", "scikit-learn"],
+      "correct": 0,
+      "explanation": "Plotly is a Python library for creating interactive plots and visualizations, unlike the other options which are more focused on web frameworks or machine learning."
+    },
+    {
+      "question": "Which Python library is designed for scientific computing?",
+      "options": ["NumPy", "Flask", "Matplotlib", "Pandas"],
+      "correct": 0,
+      "explanation": "NumPy is the library designed for scientific computing in Python, providing support for large multidimensional arrays and matrices, along with a collection of mathematical functions to operate on them."
+    },
+    {
+      "question": "Which of the following is NOT a Python web framework?",
+      "options": ["Flask", "Django", "Matplotlib", "FastAPI"],
+      "correct": 2,
+      "explanation": "Matplotlib is a library for plotting and visualization, not a web framework. Flask, Django, and FastAPI are all web frameworks in Python."
+    },
+    {
+      "question": "In which library would you typically use DataFrame structures?",
+      "options": ["Pandas", "NumPy", "Matplotlib", "SciPy"],
+      "correct": 0,
+      "explanation": "Pandas is the Python library that provides DataFrame structures for data manipulation and analysis, while NumPy is used for numerical data, and Matplotlib is used for visualization."
+    },
+    {
+      "question": "Which of the following is used for deep learning in Python?",
+      "options": ["TensorFlow", "Flask", "scikit-learn", "NumPy"],
+      "correct": 0,
+      "explanation": "TensorFlow is a popular library for deep learning in Python, while the other libraries are focused on different aspects like web development, machine learning, and numerical operations."
+    },
+    {
+      "question": "Which Python library is used for statistical computations and data analysis?",
+      "options": ["SciPy", "NumPy", "Pandas", "Django"],
+      "correct": 0,
+      "explanation": "SciPy is a Python library used for scientific and technical computing, including statistical computations. NumPy and Pandas are used for numerical data manipulation, while Django is a web framework."
+    },
+    {
+      "question": "Which of these libraries is commonly used to create web APIs in Python?",
+      "options": ["Flask", "Pandas", "NumPy", "TensorFlow"],
+      "correct": 0,
+      "explanation": "Flask is a lightweight web framework commonly used to build web APIs in Python, while Pandas, NumPy, and TensorFlow are not designed for web development."
+    }
   ],
   "Python Syntax and Grammar": [
-    { "question": "Which of these is the correct way to declare a variable in Python?", "options": ["x = 5", "var x = 5", "int x = 5", "variable x = 5"], "correct": 0 },
-    { "question": "What is the correct way to define a tuple in Python?", "options": ["(1, 2, 3)", "[1, 2, 3]", "{1, 2, 3}", "tuple(1, 2, 3)"], "correct": 0 },
-    { "question": "What does the `*args` in a function definition do?", "options": ["It allows the function to accept multiple arguments", "It is used for default arguments", "It represents keyword arguments", "None of the above"], "correct": 0 },
-    { "question": "Which of these Python statements is true?", "options": ["Indentation is optional in Python", "Python uses curly braces for code blocks", "Indentation is used to define code blocks", "Python requires semicolons to end statements"], "correct": 2 },
-    { "question": "What is the correct way to comment out a block of code in Python?", "options": ["# Block comment", "/* Block comment */", "/* Block comment", "# Comment */"], "correct": 0 },
-    { "question": "What will the following code output? `x = [1, 2, 3]; print(x[0:2])`", "options": ["[1, 2]", "[1, 3]", "[1, 2, 3]", "[0, 1]"], "correct": 0 },
-    { "question": "What does the `is` keyword do in Python?", "options": ["Checks if two variables are equal", "Checks if two variables refer to the same object", "Assigns a value to a variable", "Checks for equality of values"], "correct": 1 },
-    { "question": "Which of the following will raise a SyntaxError?", "options": ["if x == 10:", "for i in range(5):", "x = 10 +", "while True:"], "correct": 2 },
-    { "question": "Which of these is the correct way to unpack a tuple?", "options": ["x, y = (1, 2)", "x, y = (1, 2, 3)", "x = (1, 2)", "x = [1, 2]"], "correct": 0 },
-    { "question": "Which of these statements is a valid Python expression?", "options": ["x = 5 5", "x == 5", "x is 5", "x 5 == 5"], "correct": 1 }
+    {
+      "question": "What is the correct way to declare a variable in Python?",
+      "options": ["x = 10", "int x = 10", "var x = 10", "declare x = 10"],
+      "correct": 0,
+      "explanation": "In Python, variables are declared by simply assigning a value to a name, like 'x = 10'. There's no need to specify the type explicitly, as Python is dynamically typed."
+    },
+    {
+      "question": "Which of the following is a valid Python comment?",
+      "options": ["# This is a comment", "// This is a comment", "/* This is a comment */", "-- This is a comment"],
+      "correct": 0,
+      "explanation": "In Python, comments are written with a '#' symbol, like '# This is a comment'. The other options are used in different programming languages."
+    },
+    {
+      "question": "How do you define a function in Python?",
+      "options": ["def function_name():", "function function_name():", "def: function_name()", "function: function_name()"],
+      "correct": 0,
+      "explanation": "Functions in Python are defined using the 'def' keyword, followed by the function name and parentheses. For example, 'def function_name():' is the correct syntax."
+    },
+    {
+      "question": "Which of the following is used to define a block of code in Python?",
+      "options": ["Indentation", "Curly braces {}", "Parentheses ()", "Square brackets []"],
+      "correct": 0,
+      "explanation": "Python uses indentation to define blocks of code. This is a key feature of Python's syntax, and it is important to maintain consistent indentation levels."
+    },
+    {
+      "question": "Which of these data types is immutable in Python?",
+      "options": ["List", "Dictionary", "Tuple", "Set"],
+      "correct": 2,
+      "explanation": "Tuples in Python are immutable, meaning their elements cannot be changed after they are created. Lists, dictionaries, and sets are mutable."
+    },
+    {
+      "question": "What will the following code output?\n\nprint(2 + 3 * 4)",
+      "options": ["14", "20", "11", "10"],
+      "correct": 0,
+      "explanation": "Python follows the order of operations (PEMDAS), so multiplication happens before addition. Thus, '3 * 4' is evaluated first (12), then '2 + 12' results in 14."
+    },
+    {
+      "question": "What is the purpose of the 'pass' statement in Python?",
+      "options": ["To terminate a loop", "To skip an iteration in a loop", "To define an empty function or class", "To break out of a loop"],
+      "correct": 2,
+      "explanation": "'pass' is a placeholder in Python. It is used to define an empty function or class, or to indicate that nothing should happen in a certain block of code."
+    },
+    {
+      "question": "What is the correct syntax to import the math module in Python?",
+      "options": ["import math", "import math()", "from math import *", "import math as m"],
+      "correct": 0,
+      "explanation": "The correct way to import the math module in Python is 'import math'. This gives access to the functions and constants defined in the module."
+    },
+    {
+      "question": "Which of these is a valid way to handle exceptions in Python?",
+      "options": ["try...catch", "try...except", "catch...finally", "try...throw"],
+      "correct": 1,
+      "explanation": "Python uses 'try...except' blocks to handle exceptions. The 'catch' and 'throw' keywords are used in other languages, but Python uses 'except' for exception handling."
+    },
+    {
+      "question": "What is the result of the following expression in Python: 7 // 2?",
+      "options": ["3.5", "3", "4", "2"],
+      "correct": 1,
+      "explanation": "In Python, the '//' operator performs floor division, which returns the largest integer less than or equal to the result. '7 // 2' results in 3."
+    }
   ],
   "Miscellaneous Concepts": [
-    { "question": "What does GIL stand for in Python?", "options": ["Global Interpreter Lock", "Global Interface Library", "General Interpreter Lock", "Global Input Library"], "correct": 0 },
-    { "question": "What is the latest major version of Python as of 2023?", "options": ["Python 3.9", "Python 3.10", "Python 3.11", "Python 4.0"], "correct": 2 },
-    { "question": "What is the purpose of `PEP 8`?", "options": ["It defines the guidelines for Python code style", "It defines Python's memory management model", "It defines the official Python standard library", "It helps with the Python packaging system"], "correct": 0 },
-    { "question": "Which of these is a popular Python virtual environment manager?", "options": ["pip", "virtualenv", "conda", "pyenv"], "correct": 1 },
-    { "question": "How do you install a package using pip?", "options": ["pip install package_name", "pip install -r requirements.txt", "pip install package", "install package_name"], "correct": 0 },
-    { "question": "What is the purpose of the `__main__` block in Python?", "options": ["To indicate the entry point of a Python script", "To define global variables", "To create an abstract base class", "To initialize a class"], "correct": 0 },
-    { "question": "Which of the following is the correct way to define a virtual environment in Python?", "options": ["python -m venv venv_name", "virtualenv venv_name", "pyenv create venv_name", "python create venv_name"], "correct": 0 },
-    { "question": "What will happen if you call `help()` in the Python interpreter?", "options":["Displays Python documentation", "Shows a list of all installed packages", "Exits the interpreter", "None of the above"], "correct": 0 },
-    { "question": "What is the command to list all installed Python packages?", "options": ["pip list", "pip show", "python -m pip", "python -m list"], "correct": 0 },
-    { "question": "What does the `__init__` method do in Python?", "options": ["It initializes an object", "It initializes a module", "It initializes a class", "It initializes the Python interpreter"], "correct": 0 }
+    {
+      "question": "What is the purpose of the 'self' keyword in Python?",
+      "options": ["It refers to the instance of the class", "It refers to the class itself", "It is used to define a global variable", "It is used to create an alias for the class"],
+      "correct": 0,
+      "explanation": "In Python, 'self' is used to refer to the instance of the class in object-oriented programming. It is the first parameter in instance methods and is used to access attributes and methods of the object."
+    },
+    {
+      "question": "What does the 'yield' keyword do in Python?",
+      "options": ["Returns a value and terminates the function", "Creates a generator function", "Executes a block of code conditionally", "Stops the execution of a loop"],
+      "correct": 1,
+      "explanation": "The 'yield' keyword is used to create generator functions. These functions return an iterator and allow the function's state to be preserved across multiple calls, instead of returning a value and terminating the function."
+    },
+    {
+      "question": "What is the purpose of the 'with' statement in Python?",
+      "options": ["To define a context for exception handling", "To open a file safely", "To declare a global variable", "To import modules"],
+      "correct": 1,
+      "explanation": "The 'with' statement is used for resource management, typically when working with files or other resources that need to be cleaned up after use. It ensures that the file is properly closed after the block of code is executed."
+    },
+    {
+      "question": "What does the 'zip()' function do in Python?",
+      "options": ["Combines two or more iterables into a single iterable", "Finds the maximum value in an iterable", "Joins a sequence of strings into one string", "Splits a string into a list of characters"],
+      "correct": 0,
+      "explanation": "The 'zip()' function takes multiple iterables (like lists or tuples) and combines them into tuples, pairing the elements with the same index from each iterable. It returns an iterator of these tuples."
+    },
+    {
+      "question": "Which of the following is the correct way to handle a custom exception in Python?",
+      "options": ["raise Exception('error message')", "throw Exception('error message')", "exception('error message')", "error raise('error message')"],
+      "correct": 0,
+      "explanation": "In Python, custom exceptions can be raised using the 'raise' keyword, like 'raise Exception('error message')'. This triggers an exception with the specified error message."
+    },
+    {
+      "question": "What is the output of the following code?\n\nx = 10\nx += 5\nprint(x)",
+      "options": ["15", "5", "10", "None"],
+      "correct": 0,
+      "explanation": "The '+=' operator is used to add a value to a variable. In this case, 5 is added to the value of 'x' (which is initially 10), resulting in 15."
+    },
+    {
+      "question": "What does the 'global' keyword do in Python?",
+      "options": ["Declares a variable as global and accessible throughout the script", "Declares a variable as local to the function", "Defines a global class", "Makes a variable mutable"],
+      "correct": 0,
+      "explanation": "The 'global' keyword is used to declare a variable as global, meaning it can be accessed and modified from any part of the script, even within functions."
+    },
+    {
+      "question": "What is a lambda function in Python?",
+      "options": ["A function defined using the 'lambda' keyword", "A function that accepts lambda arguments", "A function that returns a string", "A function that is always anonymous"],
+      "correct": 0,
+      "explanation": "A lambda function in Python is a small, anonymous function defined using the 'lambda' keyword. It can have any number of input parameters but only one expression."
+    },
+    {
+      "question": "What is the output of the following code?\n\nx = [1, 2, 3, 4]\nprint(x[::2])",
+      "options": ["[1, 3]", "[2, 4]", "[1, 2, 3, 4]", "IndexError"],
+      "correct": 0,
+      "explanation": "The slicing syntax 'x[::2]' returns every second element in the list, starting from the first element. Therefore, it will return [1, 3]."
+    },
+    {
+      "question": "What is the purpose of the 'del' statement in Python?",
+      "options": ["Deletes an object", "Deletes a variable", "Deletes an item from a list", "All of the above"],
+      "correct": 3,
+      "explanation": "'del' can be used to delete variables, objects, and items from lists or other collections. It can also be used to delete an entire object or slice of data."
+    }
   ]
 }

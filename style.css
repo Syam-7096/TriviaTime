@@ -11,81 +11,82 @@ body {
 header {
   background-color: #113f5e;
   color: white;
-  padding: 40px 20px;
+  padding: 30px 20px; /* Reduced padding */
   text-align: center;
   border-bottom: 5px solid #113f5e;
 }
 
 .header-content h1 {
-  font-size: 2.8em;
+  font-size: 2.4em; /* Reduced size */
   margin: 0;
 }
 
 .header-subtitle {
-  font-size: 1.2em;
+  font-size: 1.1em; /* Reduced size */
   font-weight: 300;
   margin-top: 5px;
   opacity: 0.8;
 }
 
-
-.category-info{
-  font-size: 1.5em;
+.category-info {
+  font-size: 1.4em; /* Reduced size */
   margin: 0;
 }
 
 /* Category Section */
 #category-container {
-  padding: 40px 20px;
+  padding: 30px 20px; /* Reduced padding */
   text-align: center;
 }
 
 #category-container h2 {
-  font-size: 2.6em;
-  margin-bottom: 30px;
+  font-size: 2.2em; /* Reduced size */
+  margin-bottom: 20px; /* Reduced space */
   font-weight: 700;
   color: #113f5e; /* Dark blue for consistency */
-  letter-spacing: 2px;
+  letter-spacing: 1px; /* Reduced spacing */
   text-transform: uppercase;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Reduced shadow */
 }
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Reduced minimum size */
+  gap: 15px; /* Reduced gap */
+  max-width: 1000px; /* Reduced max-width */
   margin: 0 auto;
 }
 
 .category-card {
-  padding: 25px;
+  padding: 20px; /* Reduced padding */
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  cursor: pointer; /* Ensure clickable area is highlighted */
+  cursor: pointer;
+  border-radius: 8px; /* Slightly rounder edges */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slightly deeper shadow */
 }
 
 .category-icon {
-  font-size: 3.5em;
-  margin-bottom: 15px;
+  font-size: 3em; /* Reduced icon size */
+  margin-bottom: 12px; /* Reduced space */
 }
 
 .category-card p {
-  font-size: 1.2em;
+  font-size: 1.1em; /* Reduced text size */
   font-weight: 500;
   color: #333;
-  margin-top: 10px;
+  margin-top: 8px; /* Reduced space */
 }
 
 /* Hover Effects */
 .category-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  background-color: #f5f5f5; /* Combine hover effects here */
+  transform: translateY(-6px); /* Reduced hover movement */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  background-color: #f5f5f5;
 }
 
 .category-card:active {
@@ -95,18 +96,18 @@ header {
 
 /* Quiz Container */
 #quiz-container {
-  max-width: 600px;
+  max-width: 550px; /* Reduced max-width */
   margin: 20px auto;
   padding: 20px;
   background-color: white;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Enhance the shadow slightly */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  position: relative; /* Ensure Exit button is positioned within this container */
-  padding-bottom: 60px; /* Added space at the bottom for Exit button */
+  position: relative;
+  padding-bottom: 50px; /* Adjusted bottom padding */
 }
 
-#question-container {
-  margin-bottom: 20px;
+#question-container, #question-number {
+  margin-bottom: 15px; /* Reduced margin */
 }
 
 /* Option Buttons */
@@ -114,26 +115,18 @@ header {
   display: block;
   width: 100%;
   margin: 5px 0;
-  padding: 10px;
+  padding: 12px; /* Reduced padding */
   background-color: #f1f1f1;
   border: none;
   border-radius: 5px;
+  font-size: 1em; /* Reduced font size */
+  text-align: left;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .option:hover:not(.disabled) {
   background-color: #d3d3d3;
-}
-
-#next-btn.disabled {
-  background-color: #d3d3d3; /* Gray out disabled button */
-  cursor: not-allowed;
-}
-
-.disabled {
-  pointer-events: none;
-  opacity: 0.8; /* Reduce opacity for disabled state */
 }
 
 .correct {
@@ -146,16 +139,21 @@ header {
   color: white;
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
 /* Navigation Buttons */
 #navigation {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 15px; /* Reduced margin */
 }
 
 #prev-btn,
 #next-btn {
-  padding: 10px 20px;
+  padding: 8px 16px; /* Reduced padding */
   background-color: #4caf50;
   color: white;
   border: none;
@@ -171,30 +169,34 @@ header {
 
 #prev-btn:focus,
 #next-btn:focus {
-  outline: 3px solid #45a049; /* Focus styles for better accessibility */
+  outline: 3px solid #45a049;
+}
+
+#next-btn.disabled {
+  background-color: #d3d3d3;
+  cursor: not-allowed;
 }
 
 /* Timer */
 #timer {
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.1em; /* Reduced size */
   margin-bottom: 5px;
-  position: relative;  /* Ensure it's positioned correctly */
-  width: 100%;  /* Make sure it's fully stretched */
+  position: relative;
+  width: 100%;
 }
-
 
 /* Progress Bar */
 #progress-bar-container {
   width: 100%;
   background-color: #e0e0e0;
   border-radius: 5px;
-  margin: 20px 0;
+  margin: 15px 0; /* Reduced margin */
 }
 
 #progress-bar {
   width: 0%;
-  height: 10px;
+  height: 9px; /* Reduced height */
   background-color: #4caf50;
   border-radius: 5px;
   transition: width 0.5s ease-in-out;
@@ -203,18 +205,18 @@ header {
 /* Restart Button */
 #restart-btn-container {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 15px; /* Reduced margin */
   display: none;
 }
 
 #restart-btn-container button {
-  padding: 10px 20px;
+  padding: 8px 16px; /* Reduced padding */
   background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1.2em;
+  font-size: 1em; /* Reduced size */
 }
 
 #restart-btn-container button:hover {
@@ -223,23 +225,56 @@ header {
 
 /* Exit Button */
 #exit-btn {
-  padding: 10px 20px;
-  background-color: #f44336; /* Red background for exit */
+  padding: 8px 16px; /* Reduced padding */
+  background-color: #f44336;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   transition: background-color 0.3s ease;
-  position: absolute; /* Position the Exit button at the bottom */
-  bottom: 20px; /* Distance from the bottom of the container */
-  left: 50%; /* Center it horizontally */
-  transform: translateX(-50%); /* Center the button correctly */
 }
 
 #exit-btn:hover {
-  background-color: #e53935; /* Darker red on hover */
+  background-color: #e53935;
 }
 
 #exit-btn:focus {
-  outline: 3px solid #e53935; /* Focus styles */
+  outline: 3px solid #e53935;
+}
+
+/* Feedback Container */
+#feedback-container {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 8px; /* Reduced padding */
+  font-size: 1.1em; /* Reduced size */
+  margin: 15px 0; /* Reduced margin */
+  text-align: center;
+  color: #495057;
+  display: none;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  #category-container h2 {
+    font-size: 1.8em; /* Reduced size */
+  }
+
+  .category-card {
+    font-size: 0.85em; /* Reduced size */
+  }
+
+  #quiz-container {
+    padding: 15px;
+  }
+
+  #navigation button {
+    padding: 8px 14px; /* Reduced padding */
+    font-size: 0.9em;
+  }
 }

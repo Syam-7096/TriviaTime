@@ -16,12 +16,16 @@ const timerDisplay = document.getElementById('timer');
 const progressBar = document.getElementById('progress-bar');
 const restartButtonContainer = document.getElementById('restart-btn-container');
 const exitButton = document.getElementById('exit-btn');
+const feedbackContainer = document.getElementById('feedback-container');
+feedbackContainer.setAttribute('aria-live', 'assertive');
 
+// Fetch questions from a JSON file
 fetch('questions.json')
     .then(response => response.json())
     .then(data => questions = data)
     .catch(error => console.error('Error loading the questions:', error));
 
+// Handle category selection
 categoryCards.forEach(card => {
     card.addEventListener('click', () => {
         const selectedCategory = card.getAttribute('data-category');
@@ -29,90 +33,124 @@ categoryCards.forEach(card => {
         document.getElementById('category-icon').textContent = categoryIcon;
         document.getElementById('category-name').textContent = selectedCategory;
         filteredQuestions = questions[selectedCategory] || [];
-        if (filteredQuestions.length) startQuiz(selectedCategory, categoryIcon);
+        if (filteredQuestions.length) startQuiz();
     });
 });
 
-function startQuiz(selectedCategory, categoryIcon) {
+// Utility to shuffle an array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// Start the quiz
+function startQuiz() {
     currentQuestionIndex = 0;
     correctAnswers = 0;
     incorrectAnswers = 0;
+    shuffleArray(filteredQuestions);
+    filteredQuestions.forEach(q => q.answered = false);
+
     document.getElementById("category-container").style.display = "none";
     quizContainer.style.display = "block";
     exitButton.style.display = "block";
     timerDisplay.style.display = "inline-block";
     prevButton.style.display = "none";
     nextButton.style.display = "inline-block";
-    nextButton.style.textAlign = "right";
     loadQuestion();
 }
 
-
+// Load the current question
 function loadQuestion() {
     clearInterval(timerInterval);
     timeLeft = 15;
     updateTimerDisplay();
+    updateQuestionNumber();
+
     const currentQuestion = filteredQuestions[currentQuestionIndex];
+    const shuffledOptions = [...currentQuestion.options];
+    shuffleArray(shuffledOptions);
+
+    const correctIndexInShuffledOptions = shuffledOptions.indexOf(currentQuestion.options[currentQuestion.correct]);
 
     questionContainer.textContent = currentQuestion.question;
-    optionsContainer.innerHTML = ""; // Clear previous options
-    currentQuestion.options.forEach((option, index) => {
+    optionsContainer.innerHTML = "";
+
+    shuffledOptions.forEach((option, index) => {
         const optionButton = document.createElement('button');
         optionButton.textContent = option;
         optionButton.classList.add('option');
-        optionButton.addEventListener('click', () => handleAnswer(index));
+        optionButton.addEventListener('click', () => handleAnswer(index, correctIndexInShuffledOptions, currentQuestion.explanation));
         optionsContainer.appendChild(optionButton);
     });
 
-    prevButton.style.display = "inline-block"; // Show "Prev" button
-    nextButton.style.display = "inline-block"; // Show "Next" button
+    prevButton.style.display = "inline-block";
+    nextButton.style.display = "inline-block";
     prevButton.disabled = currentQuestionIndex === 0;
     nextButton.disabled = false;
     nextButton.textContent = currentQuestionIndex === filteredQuestions.length - 1 ? "Finish" : "Next";
-    updateProgressBar();
-    startTimer();
-}
+    updateProgressBar();  // Explicitly update the progress bar here
 
-function handleAnswer(selectedIndex) {
-    const currentQuestion = filteredQuestions[currentQuestionIndex];
-    const optionButtons = optionsContainer.querySelectorAll('.option');
-    
-    optionButtons.forEach((button, index) => {
-        button.disabled = true;  // Disable all options after selection
-        button.classList.add('disabled'); 
-        if (index === currentQuestion.correct) {
-            button.classList.add('correct');
-        } else if (index === selectedIndex && selectedIndex !== currentQuestion.correct) {
-            button.classList.add('incorrect');
-        }
-    });
-    if (selectedIndex === currentQuestion.correct) {
-        correctAnswers++;  
-    } else {
-        incorrectAnswers++;  
+    if (!currentQuestion.answered) {
+        startTimer();
     }
-    setTimeout(() => {
-        if (currentQuestionIndex === filteredQuestions.length - 1) {
-            endQuiz();
-        } else {
-            currentQuestionIndex++;
-            loadQuestion();
-        }
-    }, 1000);
 }
 
-function handleTimeout() {
+// Handle answer selection
+function handleAnswer(selectedIndex, correctIndexInShuffledOptions, explanation) {
     const currentQuestion = filteredQuestions[currentQuestionIndex];
     const optionButtons = optionsContainer.querySelectorAll('.option');
-    
+
+    clearInterval(timerInterval);
+
+    if (currentQuestion.answered) return;
+
     optionButtons.forEach((button, index) => {
         button.disabled = true;
         button.classList.add('disabled');
-        
-        if (index === currentQuestion.correct) {
-            button.classList.add('correct');
-        }
+        if (index === correctIndexInShuffledOptions) button.classList.add('correct');
+        else if (index === selectedIndex) button.classList.add('incorrect');
     });
+
+    currentQuestion.answered = true;
+    selectedIndex === correctIndexInShuffledOptions ? correctAnswers++ : incorrectAnswers++;
+
+    showFeedback(explanation, selectedIndex === correctIndexInShuffledOptions);
+}
+
+// Display feedback
+function showFeedback(explanation, isCorrect) {
+    feedbackContainer.style.display = 'block';
+    feedbackContainer.textContent = isCorrect ? `Correct! ${explanation}` : `Incorrect! ${explanation}`;
+
+    setTimeout(() => {
+        feedbackContainer.style.display = 'none';
+        if (currentQuestionIndex === filteredQuestions.length - 1) endQuiz();
+        else {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+    }, 5000);
+}
+
+// Handle timeout
+function handleTimeout() {
+    const currentQuestion = filteredQuestions[currentQuestionIndex];
+    const optionButtons = optionsContainer.querySelectorAll('.option');
+
+    if (currentQuestion.answered) return;
+
+    optionButtons.forEach((button, index) => {
+        button.disabled = true;
+        button.classList.add('disabled');
+        if (index === currentQuestion.correct) button.classList.add('correct');
+    });
+
+    currentQuestion.answered = true;
+    incorrectAnswers++;
+
     setTimeout(() => {
         if (currentQuestionIndex < filteredQuestions.length - 1) {
             currentQuestionIndex++;
@@ -123,6 +161,7 @@ function handleTimeout() {
     }, 1000);
 }
 
+// Start the timer
 function startTimer() {
     timerInterval = setInterval(() => {
         timeLeft--;
@@ -134,16 +173,24 @@ function startTimer() {
     }, 1000);
 }
 
+// Update timer display
 function updateTimerDisplay() {
     timerDisplay.textContent = `Time Left: ${timeLeft}s`;
     timerDisplay.style.color = timeLeft <= 5 ? 'red' : 'black';
 }
 
+function updateQuestionNumber() {
+    const questionNumberDisplay = document.getElementById('question-number');
+    questionNumberDisplay.textContent = `Question ${currentQuestionIndex + 1} of ${filteredQuestions.length}`;
+}
+
+// Update progress bar
 function updateProgressBar() {
-    const progress = (currentQuestionIndex + 1) / filteredQuestions.length * 100;
+    const progress = ((currentQuestionIndex + 1) / filteredQuestions.length) * 100;
     progressBar.style.width = `${progress}%`;
 }
 
+// End the quiz
 function endQuiz() {
     clearInterval(timerInterval);
     const skippedQuestions = filteredQuestions.length - (correctAnswers + incorrectAnswers);
@@ -154,19 +201,20 @@ function endQuiz() {
         <p>Incorrect: ${incorrectAnswers}</p>
         <p>Skipped: ${skippedQuestions}</p>
     `;
-    prevButton.style.display = "none"; // Hide "Prev" button
-    nextButton.style.display = "none"; // Hide "Next" button
-    timerDisplay.style.display = "none"; // Hide timer
-    exitButton.style.display = "block"; // Show exit button on score screen
-    restartButtonContainer.style.display = "block"; // Show restart button
+    prevButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerDisplay.style.display = "none";
+    exitButton.style.display = "block";
+    restartButtonContainer.style.display = "block";
 }
 
+// Event listeners for navigation buttons
 nextButton.addEventListener('click', () => {
-    if (currentQuestionIndex === filteredQuestions.length - 1) {
-        endQuiz();
-    } else {
+    if (currentQuestionIndex === filteredQuestions.length - 1) endQuiz();
+    else {
         currentQuestionIndex++;
         loadQuestion();
+        updateProgressBar(); // Update progress bar after changing question index
     }
 });
 
@@ -174,11 +222,15 @@ prevButton.addEventListener('click', () => {
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
         loadQuestion();
+        updateProgressBar(); // Update progress bar after changing question index
     }
 });
 
+// Exit the quiz
 exitButton.addEventListener('click', () => {
     clearInterval(timerInterval);
+    filteredQuestions = [];
+    currentQuestionIndex = 0;
     document.getElementById("category-container").style.display = "block";
     quizContainer.style.display = "none";
     exitButton.style.display = "none";
@@ -190,19 +242,18 @@ exitButton.addEventListener('click', () => {
     document.getElementById('category-name').textContent = '';
 });
 
+// Restart the quiz
 function restartQuiz() {
     correctAnswers = 0;
     incorrectAnswers = 0;
     currentQuestionIndex = 0;
     timeLeft = 15;
-    const timerElement = document.getElementById('timer');
-    timerElement.style.position = 'relative';
-    timerElement.style.textAlign = 'center';
-    timerDisplay.textContent = `Time Left: ${timeLeft}s`;
+    filteredQuestions.forEach(q => q.answered = false);
+    shuffleArray(filteredQuestions);
     restartButtonContainer.style.display = "none";
     prevButton.style.display = "inline-block";
-    nextButton.style.display = "inline-block"; 
-    timerDisplay.style.display = "inline-block"; 
+    nextButton.style.display = "inline-block";
+    timerDisplay.style.display = "inline-block";
     exitButton.style.display = "block";
     loadQuestion();
 }
