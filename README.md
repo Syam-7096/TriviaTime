@@ -50,16 +50,16 @@ After completing a quiz, users can:
 
 1. **Category Selection Screen**
    - Displays categories with icons and descriptions.
-   ![Category Selection](screenshot1.png)
+   ![Category Selection](screenshots\Category-Selection.png)
 
 
 2. **Quiz Screen**
    - Displays the current question, options, timer, and navigation buttons.
-   ![Quiz Screen](screenshot2.png)
+   ![Quiz Screen](screenshots\Quiz-Screen.png)
 
 3. **Results Screen**
    - Shows a summary of the user's performance, including correct, incorrect, and skipped answers.
-   ![Results Screen](screenshot3.png)
+   ![Results Screen](screenshots\Results-Screen.png)
 
 ## Setup and Integration
 
@@ -96,7 +96,3 @@ git clone https://github.com/Syam-7096/TriviaTime.git
 ## Authors
 
 - @Syam-7096
-
----
-Feel free to contribute to this project or customize it to suit your needs. Enjoy learning Python with TriviaTime!
-
