@@ -50,16 +50,16 @@ After completing a quiz, users can:
 
 1. **Category Selection Screen**
    - Displays categories with icons and descriptions.
-   ![Category Selection](screenshots\Category-Selection.png)
+   ![Category Selection](https://github.com/Syam-7096/TriviaTime/blob/a9c0e0f53d1265357f4dcce1a9f82d030327f96f/screenshots/Category-Selection.png)
 
 
 2. **Quiz Screen**
    - Displays the current question, options, timer, and navigation buttons.
-   ![Quiz Screen](screenshots\Quiz-Screen.png)
+   ![Quiz Screen](https://github.com/Syam-7096/TriviaTime/blob/a9c0e0f53d1265357f4dcce1a9f82d030327f96f/screenshots/Quiz-Screen.png)
 
 3. **Results Screen**
    - Shows a summary of the user's performance, including correct, incorrect, and skipped answers.
-   ![Results Screen](screenshots\Results-Screen.png)
+   ![Results Screen](https://github.com/Syam-7096/TriviaTime/blob/a9c0e0f53d1265357f4dcce1a9f82d030327f96f/screenshots/Results-Screen.png)
 
 ## Setup and Integration
 

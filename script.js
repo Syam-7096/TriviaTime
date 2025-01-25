@@ -5,6 +5,8 @@ let correctAnswers = 0;
 let incorrectAnswers = 0;
 let timerInterval;
 let timeLeft = 15;
+let userClickedNext = false;
+let feedbackTimeout;
 
 const categoryCards = document.querySelectorAll('.category-card');
 const quizContainer = document.getElementById('quiz-container');
@@ -19,7 +21,7 @@ const exitButton = document.getElementById('exit-btn');
 const feedbackContainer = document.getElementById('feedback-container');
 feedbackContainer.setAttribute('aria-live', 'assertive');
 
-// Fetch questions from a JSON file
+// Fetch questions
 fetch('questions.json')
     .then(response => response.json())
     .then(data => questions = data)
@@ -38,15 +40,15 @@ categoryCards.forEach(card => {
 });
 
 // Utility to shuffle an array
-function shuffleArray(array) {
+const shuffleArray = array => {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
-}
+};
 
 // Start the quiz
-function startQuiz() {
+const startQuiz = () => {
     currentQuestionIndex = 0;
     correctAnswers = 0;
     incorrectAnswers = 0;
@@ -60,14 +62,16 @@ function startQuiz() {
     prevButton.style.display = "none";
     nextButton.style.display = "inline-block";
     loadQuestion();
-}
+};
 
 // Load the current question
-function loadQuestion() {
+const loadQuestion = () => {
     clearInterval(timerInterval);
     timeLeft = 15;
     updateTimerDisplay();
     updateQuestionNumber();
+
+    userClickedNext = false;
 
     const currentQuestion = filteredQuestions[currentQuestionIndex];
     const shuffledOptions = [...currentQuestion.options];
@@ -91,15 +95,13 @@ function loadQuestion() {
     prevButton.disabled = currentQuestionIndex === 0;
     nextButton.disabled = false;
     nextButton.textContent = currentQuestionIndex === filteredQuestions.length - 1 ? "Finish" : "Next";
-    updateProgressBar();  // Explicitly update the progress bar here
+    updateProgressBar();
 
-    if (!currentQuestion.answered) {
-        startTimer();
-    }
-}
+    if (!currentQuestion.answered) startTimer();
+};
 
 // Handle answer selection
-function handleAnswer(selectedIndex, correctIndexInShuffledOptions, explanation) {
+const handleAnswer = (selectedIndex, correctIndexInShuffledOptions, explanation) => {
     const currentQuestion = filteredQuestions[currentQuestionIndex];
     const optionButtons = optionsContainer.querySelectorAll('.option');
 
@@ -118,25 +120,30 @@ function handleAnswer(selectedIndex, correctIndexInShuffledOptions, explanation)
     selectedIndex === correctIndexInShuffledOptions ? correctAnswers++ : incorrectAnswers++;
 
     showFeedback(explanation, selectedIndex === correctIndexInShuffledOptions);
-}
+};
 
 // Display feedback
-function showFeedback(explanation, isCorrect) {
+const showFeedback = (explanation, isCorrect) => {
     feedbackContainer.style.display = 'block';
     feedbackContainer.textContent = isCorrect ? `Correct! ${explanation}` : `Incorrect! ${explanation}`;
 
-    setTimeout(() => {
-        feedbackContainer.style.display = 'none';
-        if (currentQuestionIndex === filteredQuestions.length - 1) endQuiz();
-        else {
-            currentQuestionIndex++;
-            loadQuestion();
+    clearTimeout(feedbackTimeout);
+
+    feedbackTimeout = setTimeout(() => {
+        if (!userClickedNext) {
+            feedbackContainer.style.display = 'none';
+            if (currentQuestionIndex === filteredQuestions.length - 1) {
+                endQuiz();
+            } else {
+                currentQuestionIndex++;
+                loadQuestion();
+            }
         }
     }, 5000);
-}
+};
 
 // Handle timeout
-function handleTimeout() {
+const handleTimeout = () => {
     const currentQuestion = filteredQuestions[currentQuestionIndex];
     const optionButtons = optionsContainer.querySelectorAll('.option');
 
@@ -159,10 +166,10 @@ function handleTimeout() {
             endQuiz();
         }
     }, 1000);
-}
+};
 
 // Start the timer
-function startTimer() {
+const startTimer = () => {
     timerInterval = setInterval(() => {
         timeLeft--;
         updateTimerDisplay();
@@ -171,27 +178,27 @@ function startTimer() {
             handleTimeout();
         }
     }, 1000);
-}
+};
 
 // Update timer display
-function updateTimerDisplay() {
+const updateTimerDisplay = () => {
     timerDisplay.textContent = `Time Left: ${timeLeft}s`;
     timerDisplay.style.color = timeLeft <= 5 ? 'red' : 'black';
-}
+};
 
-function updateQuestionNumber() {
+const updateQuestionNumber = () => {
     const questionNumberDisplay = document.getElementById('question-number');
     questionNumberDisplay.textContent = `Question ${currentQuestionIndex + 1} of ${filteredQuestions.length}`;
-}
+};
 
 // Update progress bar
-function updateProgressBar() {
+const updateProgressBar = () => {
     const progress = ((currentQuestionIndex + 1) / filteredQuestions.length) * 100;
     progressBar.style.width = `${progress}%`;
-}
+};
 
 // End the quiz
-function endQuiz() {
+const endQuiz = () => {
     clearInterval(timerInterval);
     const skippedQuestions = filteredQuestions.length - (correctAnswers + incorrectAnswers);
     questionContainer.textContent = `Quiz Over!`;
@@ -206,24 +213,25 @@ function endQuiz() {
     timerDisplay.style.display = "none";
     exitButton.style.display = "block";
     restartButtonContainer.style.display = "block";
-}
+};
 
 // Event listeners for navigation buttons
-nextButton.addEventListener('click', () => {
-    if (currentQuestionIndex === filteredQuestions.length - 1) endQuiz();
-    else {
-        currentQuestionIndex++;
-        loadQuestion();
-        updateProgressBar(); // Update progress bar after changing question index
-    }
-});
+[nextButton, prevButton].forEach(button => {
+    button.addEventListener('click', () => {
+        userClickedNext = button === nextButton;
 
-prevButton.addEventListener('click', () => {
-    if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        loadQuestion();
-        updateProgressBar(); // Update progress bar after changing question index
-    }
+        clearTimeout(feedbackTimeout);
+        feedbackContainer.style.display = 'none';
+
+        if (userClickedNext && currentQuestionIndex === filteredQuestions.length - 1) {
+            endQuiz();
+        } else {
+            currentQuestionIndex += button === nextButton ? 1 : -1;
+            loadQuestion();
+        }
+
+        updateProgressBar();
+    });
 });
 
 // Exit the quiz
@@ -243,7 +251,7 @@ exitButton.addEventListener('click', () => {
 });
 
 // Restart the quiz
-function restartQuiz() {
+const restartQuiz = () => {
     correctAnswers = 0;
     incorrectAnswers = 0;
     currentQuestionIndex = 0;
@@ -256,4 +264,4 @@ function restartQuiz() {
     timerDisplay.style.display = "inline-block";
     exitButton.style.display = "block";
     loadQuestion();
-}
+};
