@@ -2,6 +2,8 @@
 
 TriviaTime is an interactive quiz application designed to test and enhance your Python knowledge across various categories. Featuring a sleek, user-friendly interface, it provides real-time feedback, a progress tracker, and results at the end of each quiz session.
 
+You can access the live version of the quiz application here: [TriviaTime - Python Quiz](https://syam-7096.github.io/TriviaTime/)
+
 ## Features
 
 - **Timer for Each Question**: Each question is timed with a 15-second countdown.
@@ -51,7 +53,6 @@ After completing a quiz, users can:
 1. **Category Selection Screen**
    - Displays categories with icons and descriptions.
    ![Category Selection](https://github.com/Syam-7096/TriviaTime/blob/a9c0e0f53d1265357f4dcce1a9f82d030327f96f/screenshots/Category-Selection.png)
-
 
 2. **Quiz Screen**
    - Displays the current question, options, timer, and navigation buttons.
