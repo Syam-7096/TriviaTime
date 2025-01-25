@@ -55,7 +55,7 @@ After completing a quiz, users can:
 
 2. **Quiz Screen**
    - Displays the current question, options, timer, and navigation buttons.
-   ![Quiz Screen](https://github.com/Syam-7096/TriviaTime/blob/a9c0e0f53d1265357f4dcce1a9f82d030327f96f/screenshots/Quiz-Screen.png)
+   ![Quiz Screen](https://github.com/Syam-7096/TriviaTime/blob/5e5b877795ceda8e598171fe5ba86a98a35c1020/screenshots/Quiz-Screen.png)
 
 3. **Results Screen**
    - Shows a summary of the user's performance, including correct, incorrect, and skipped answers.
