@@ -53,6 +53,7 @@ const startQuiz = () => {
     correctAnswers = 0;
     incorrectAnswers = 0;
     shuffleArray(filteredQuestions);
+    document.getElementById('question-number').style.display = "block";
     filteredQuestions.forEach(q => q.answered = false);
 
     document.getElementById("category-container").style.display = "none";
@@ -200,14 +201,20 @@ const updateProgressBar = () => {
 // End the quiz
 const endQuiz = () => {
     clearInterval(timerInterval);
-    const skippedQuestions = filteredQuestions.length - (correctAnswers + incorrectAnswers);
-    questionContainer.textContent = `Quiz Over!`;
+    const questionsAnswered = correctAnswers + incorrectAnswers;
+    const skippedQuestions = filteredQuestions.length - questionsAnswered;
+    document.getElementById('question-number').style.display = "none";
+    questionContainer.textContent = "🎉 Quiz Over!";
     optionsContainer.innerHTML = `
-        <p>Your Results:</p>
-        <p>Correct: ${correctAnswers}</p>
-        <p>Incorrect: ${incorrectAnswers}</p>
-        <p>Skipped: ${skippedQuestions}</p>
+        <div class="quiz-results">
+            <p><strong>Total Questions:</strong> ${filteredQuestions.length}</p>
+            <p><strong>Questions Answered:</strong> ${questionsAnswered}</p>
+            <p style="color: green;"><strong>✅ Correct:</strong> ${correctAnswers}</p>
+            <p style="color: red;"><strong>❌ Incorrect:</strong> ${incorrectAnswers}</p>
+            <p style="color: gray;"><strong>⏳ Skipped:</strong> ${skippedQuestions}</p>
+        </div>
     `;
+
     prevButton.style.display = "none";
     nextButton.style.display = "none";
     timerDisplay.style.display = "none";
@@ -258,6 +265,7 @@ const restartQuiz = () => {
     timeLeft = 15;
     filteredQuestions.forEach(q => q.answered = false);
     shuffleArray(filteredQuestions);
+    document.getElementById('question-number').style.display = "block";  
     restartButtonContainer.style.display = "none";
     prevButton.style.display = "inline-block";
     nextButton.style.display = "inline-block";
