@@ -269,10 +269,6 @@ header {
     font-size: 0.85em; /* Reduced size */
   }
 
-  #quiz-container {
-    padding: 15px;
-  }
-
   #navigation button {
     padding: 8px 14px; /* Reduced padding */
     font-size: 0.9em;
