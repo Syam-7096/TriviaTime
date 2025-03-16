@@ -60,7 +60,7 @@ After completing a quiz, users can:
 
 3. **Results Screen**
    - Shows a summary of the user's performance, including correct, incorrect, and skipped answers.
-   ![Results Screen](https://github.com/Syam-7096/TriviaTime/blob/a9c0e0f53d1265357f4dcce1a9f82d030327f96f/screenshots/Results-Screen.png)
+   ![Results Screen](https://github.com/Syam-7096/TriviaTime/blob/2fec13757416613b2b25a97f0adfa1c7670f04e9/screenshots/Results-Screen.png)
 
 ## Setup and Integration
 
